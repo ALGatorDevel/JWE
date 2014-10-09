@@ -141,6 +141,9 @@ sub getProjectRootPath
 	# get project root path
 	$val = $projectSettings->{ProjectsRoot};
 	
+	my $JWE_PROJECTS_ROOT= $ENV{'JWE_PROJECTS_ROOT'};
+	$val =~ s/JWE_PROJECTS_ROOT/$JWE_PROJECTS_ROOT/;
+	
 	return $val;
 }
 

@@ -1,20 +1,8 @@
 {
-   "Id2" : 
-   {
-      "Id" : "Id2",
-      "ProjectsRoot" : "/Users/Tomaz/Dropbox/FRI/ALGOSystem/JWE/TestProjekti/BrezRekurzije",
-      "Name" : "Primer 2 brez rekurzije"
-   },
    "AT" : 
    {
       "Id" : "AT",
-      "ProjectsRoot" : "/Users/Tomaz/Dropbox/FRI/ALGOSystem/JWE/TestProjekti/Test",
+      "ProjectsRoot" : "JWE_PROJECTS_ROOT/Test",
       "Name" : "WinAT"
-   },
-   "Id1" : 
-   {
-      "Id" : "Id1",
-      "ProjectsRoot" : "/Users/Tomaz/Dropbox/FRI/ALGOSystem/JWE/TestProjekti/Rekurzija",
-      "Name" : "Primer 1 z rekurzijo"
    }
 }

@@ -10,6 +10,8 @@ use modules::EntityTools;
 use modules::Tools;
 use URI::Escape;
 
+use Env qw(JWE_PROJECTS_ROOT);
+
 use Data::Dumper; 
 
 use feature qw(switch);
@@ -198,7 +200,7 @@ sub listProjects
 	#ni mi vsec, da se projekti berejo iz konfiguracijske datoteke; namesto 
 	# tega bom projekte prebral iz datotecnega sistema (vse mape PROJ-*) 
 	my $projectSettings = EntityTools::getProjectSettings($projectId);
-	my $projectPath = $projectSettings->{ProjectsRoot};
+	my $projectPath = EntityTools::getProjectRootPath($projectId);
 	my @val = `ls $projectPath/Projects/`;
 	
 	my @loop_data = ();
@@ -396,6 +398,7 @@ sub showOverviewPage
 	my $projectId   = $_[0];
 
 	my $projectRootPath = EntityTools::getProjectRootPath($projectId);
+	
 	
 	my $filename = $projectRootPath . "/Conf/overview.html"; 
 
