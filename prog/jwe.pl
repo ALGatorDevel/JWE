@@ -682,13 +682,6 @@ sub performAction
 
 my $loginStatus = 1;
 
-#td ... debug
-print "Content-type: text/html\n\n JWE is great!";
-my $key;
-for $key (keys(%ENV)){
-	print $key;
-}
-
 
 #td: preprecim klic programa brez parametrov (iz varnostnih razlogov)
 #my @pars = $query->param;;
