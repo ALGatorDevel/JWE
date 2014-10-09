@@ -1,0 +1,13 @@
+BubbleSort;TestSet1;test1;INLINE;10;12;4;5;51;OK
+BubbleSort;TestSet1;test2;INLINE;10;6;4;4;46;OK
+BubbleSort;TestSet1;test3;RND;10;13;5;6;62;OK
+BubbleSort;TestSet1;test4;RND;100;6196;7;660;6606;OK
+BubbleSort;TestSet1;test5;RND;1000;2294;670;907;9073;OK
+BubbleSort;TestSet1;test6;SORTED;10;2;0;0;8;OK
+BubbleSort;TestSet1;test7;SORTED;100;8;7;7;71;OK
+BubbleSort;TestSet1;test8;SORTED;1000;5024;669;1112;11124;OK
+BubbleSort;TestSet1;test9;INVERSED;10;3;0;1;11;OK
+BubbleSort;TestSet1;test10;INVERSED;100;9;7;7;75;OK
+BubbleSort;TestSet1;test11;INVERSED;1000;3930;671;1133;11331;OK
+BubbleSort;TestSet1;test12;FILE;10;4;1;1;18;OK
+BubbleSort;TestSet1;test13;FILE;30;4;2;3;30;OK

@@ -1,0 +1,18 @@
+{
+   "Project" : {
+      "AlgorithmTPL" : "SortAbsAlgorithm.java",
+      "TestCaseClass" : "SortTestCase.java",
+      "Date" : "Danes",
+      "Algorithms" : [
+         "Algoritem1",
+         "Algoritem2"
+      ],
+      "TestSetIteratorClass" : "SortTestSetIterator.java",
+      "TestSets" : [
+         "TestSet1"
+      ],
+      "Description" : "Opis",
+      "Name" : "T1",
+      "Author" : "Marko"
+   }
+}

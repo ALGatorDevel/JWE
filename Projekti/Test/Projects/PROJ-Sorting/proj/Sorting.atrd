@@ -1,0 +1,59 @@
+{
+  "ResultDescription":
+  { 
+    "format"         : "CSV",
+    "delim"          : ";",
+    "testParOrder"   : ["Test", "Group", "N"],    	
+    "resultParOrder" : ["Tmax", "Tmin", "Tavg", "Tsum", "Check"],    	
+  
+    "params":   [	
+    
+      {
+       "name": "Test",             
+       "desc": "The name of the test", 
+       "type": "string"       
+      },
+      {
+       "name": "Group",             
+       "desc": "The name of the group to which this test belongs", 
+       "type": "string"       
+      },
+      {
+       "name": "N",             
+       "desc": "The size of the test (number of elements to be sorted)", 
+       "type": "int"       
+      },
+    
+      {
+       "name"    : "Tmax",             
+       "desc"    : "Sorting MAX time",             
+       "type"    : "timer",          
+       "subtype" : "0 MAX"    
+      },
+      {
+       "name"    : "Tmin",             
+       "desc"    : "Sorting MIN time",             
+       "type"    : "timer",          
+       "subtype" : "0 MIN"    
+      },
+      {
+       "name"    : "Tavg",             
+       "desc"    : "Sorting AVG time",             
+       "type"    : "timer",          
+       "subtype" : "0 AVG"    
+      },
+      {
+       "name"    : "Tsum",             
+       "desc"    : "Sorting SUM	 time",             
+       "type"    : "timer",          
+       "subtype" : "0 SUM"    
+      },
+      {
+       "name": "Check",             
+       "desc": "The correctness of the algorithm (OK or NOK)", 
+       "type": "string"       
+      }
+    ]
+  }
+}
+ 

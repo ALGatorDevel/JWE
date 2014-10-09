@@ -1,0 +1,57 @@
+					<tr id="<TMPL_VAR NAME=ELEMENT_ID>_rowEntity2">
+						<td class="entity2TableColumn0">
+							<input class="keyDescriptionEntity" type="text" readonly="readonly" value="<TMPL_VAR NAME=KEY_DESCRIPTION>" />
+						</td>
+						<td class="entity2TableColumn1">
+							<input id="<TMPL_VAR NAME=INDEX>_value" class="keyDescriptionEntity" type="text" readonly="readonly" value="<TMPL_VAR NAME=VALUE>" />
+						</td>
+						<td class="entity2TableColumn2"> 
+							<img id="<TMPL_VAR NAME=INDEX>_editImage" onclick='toggleDisplay("<TMPL_VAR NAME=ELEMENT_ID>_entityTable2")' src="images/Files-Edit-File-icon_24.png" />
+						</td>
+						<td class="entity2TableColumn3">
+							<TMPL_LOOP NAME=VALUES><TMPL_IF NAME=ADD_ROW><img onclick="entityAddEntity('<TMPL_VAR NAME=PROJECT_ID>', '<TMPL_VAR NAME=CURRENT_ENTITY_TYPE>', '<TMPL_VAR NAME=PROJECT>', '<TMPL_VAR NAME=ELEMENT_ID>_rowAddEntity', '<TMPL_VAR NAME=PARENT_INDEX>_value', 'saveEntityButton')" src="images/add-icon_24.png" /></TMPL_IF></TMPL_LOOP>
+						</td>
+						<script>
+							if ('<TMPL_VAR NAME=VALUE>' == '[]')
+							{
+								hideElement('<TMPL_VAR NAME=INDEX>_editImage');
+							}
+						</script>
+					</tr>
+					<tr id="<TMPL_VAR NAME=ELEMENT_ID>_rowEntity">
+						<td class="entity2TableColumn1" colspan="4" valign="top">
+							<input id="<TMPL_VAR NAME=ELEMENT_ID>" class="readOnlyTextInput" name="<TMPL_VAR NAME=ELEMENT_ID>" type="hidden" value="Hidden" />
+							<table id="<TMPL_VAR NAME=ELEMENT_ID>_entityTable2" class="entity2Table2" cellpadding="1" cellspacing="1" style="padding-left:30px; display:none">
+								<TMPL_LOOP NAME="VALUES"><TMPL_IF NAME="ADD_ROW"><tr id="<TMPL_VAR NAME=ELEMENT_ID>_rowAddEntity"  style="display:none">
+									<td class="entity2TableColumn1" colspan="2">
+										<input id="<TMPL_VAR NAME=ELEMENT_ID>_entityTextField" class="entityValue" name="<TMPL_VAR NAME=ELEMENT_ID>" type="text" readonly="readonly" value="<TMPL_VAR NAME=VALUE>" />
+									</td>
+									<td class="entity2TableColumn2">
+										<img id="<TMPL_VAR NAME=ELEMENT_ID>_editImage" onclick="addEntity4('<TMPL_VAR NAME=PROJECT_ID>', '<TMPL_VAR NAME=CURRENT_ENTITY_TYPE>', '<TMPL_VAR NAME=PROJECT>', '<TMPL_VAR NAME=ELEMENT_ID>_rowAddEntity', '<TMPL_VAR NAME=KEY>', '<TMPL_VAR NAME=ELEMENT_ID>_entityTable2')" src="images/add-icon_24.png" />
+									</td>
+									<td class="entity2TableColumn3">
+									</td>
+								</tr><TMPL_ELSE><tr id="<TMPL_VAR NAME=ELEMENT_ID>_rowEntity">
+									<td class="entity2TableColumn1" colspan="2">
+										<input id="<TMPL_VAR NAME=ELEMENT_ID>_entityTextField" class="entityValue" name="<TMPL_VAR NAME=ELEMENT_ID>" type="text" readonly="readonly" value="<TMPL_VAR NAME=VALUE>" />
+									</td>
+									<td class="entity2TableColumn2">
+										<img id="<TMPL_VAR NAME=ELEMENT_ID>_editImage" onclick="toggleDisplay('<TMPL_VAR NAME=ELEMENT_ID>_rowEntityEditor')" src="images/Files-Edit-File-icon_24.png" />
+									</td>
+									<td class="entity2TableColumn3">
+										<A HREF='jwe.pl?aaa=<TMPL_VAR NAME=LINK>'><img src="images/Entity_link_24.png" /></A>
+									</td>
+									<td class="entity2TableColumn3">
+										<img onclick="entityDeleteEntity('<TMPL_VAR NAME=ELEMENT_ID>_rowEntity', '<TMPL_VAR NAME=ELEMENT_ID>_rowEntityEditor', '<TMPL_VAR NAME=ELEMENT_ID>_entityTextField', '<TMPL_VAR NAME=PARENT_INDEX>_value', '<TMPL_VAR NAME=PARENT_INDEX>', 'saveEntityButton')" src="images/delete-icon_24.png" />
+									</td>
+								</tr></TMPL_IF>
+								<TMPL_IF NAME="ADD_ROW"><tr id="<TMPL_VAR NAME=ELEMENT_ID>_rowAddEntityEditor" style="display:none">
+								<TMPL_ELSE><tr id="<TMPL_VAR NAME=ELEMENT_ID>_rowEntityEditor" style="display:none"></TMPL_IF>
+									<td colspan="5">
+<TMPL_INCLUDE NAME="Entity2 - Table3.html">
+									</td>
+								</tr>
+								</TMPL_LOOP>
+							</table>
+						</td>
+					</tr>

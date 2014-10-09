@@ -1,0 +1,11 @@
+{
+   "Algorithm" : {
+      "ShortName" : "Al2",
+      "AlgorithmClass" : "QuicksortSortAlgorithm",
+      "Name" : "Algo2",
+      "Description" : "Algoritem2",
+      "Date" : "7. junij 2014",
+      "Author" : "Marko",
+      "Algorithms" : []
+   }
+}

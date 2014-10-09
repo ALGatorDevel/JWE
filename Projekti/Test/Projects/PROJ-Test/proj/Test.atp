@@ -1,0 +1,20 @@
+{
+   "Project" : {
+      "AlgorithmTPL" : "SortAbsAlgorithm",
+      "TestCaseClass" : "SortTestCase",
+      "Date" : "7. junij 2014",
+      "Algorithms" : [
+         "Algoritem1",
+         "Algoritem2",
+         "Algoritem3"
+      ],
+      "TestSetIteratorClass" : "SortTestSetIterator",
+      "TestSets" : [
+         "TestSet1",
+         "TestSet2"
+      ],
+      "Description" : "Opis",
+      "Name" : "Ime",
+      "Author" : "Avtor"
+   }
+}

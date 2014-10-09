@@ -1,0 +1,13 @@
+{
+   "Algorithm" : {
+      "ShortName" : "c",
+      "AlgorithmClass" : "BubblesortSortAlgorithm",
+      "Name" : "TAlevel2",
+      "Description" : "c",
+      "Date" : "c",
+      "Author" : "Marko",
+      "Algorithms" : [
+         "TestAlgorithm level 3"
+      ]
+   }
+}

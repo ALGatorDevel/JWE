@@ -1,0 +1,35 @@
+{
+  "Name"     : "TestSet",
+  "Filename" : "$1/tests/{}.atts",
+  "Order"    : ["Name", "Desc", "ShortName", "N", "TestSetFiles", "TestRepeat"],
+  
+  "properties":   {	
+      "Name" : {
+            "description": "Short name of the algorithm", 
+            "type": "string",
+            "pattern": "[A-Za-z][A-Za-z]{0-15}"       
+      },
+      "Desc" :  {           
+            "description": "TestSet Description", 
+            "type": "string"       
+      },
+      "ShortName" : {
+            "description": "Very short name of the test set that will be used in diagram legends", 
+            "type": "string",
+            "pattern": "[A-Za-z][A-Za-z]{0-4}"       
+      },
+      "N" : {
+            "description": "number of elements", 
+            "type": "string"
+      },
+      "TestSetFiles" : {
+            "description": "Files used for test", 
+            "type": "Files",
+            "root": "$1/tests"       
+      },
+      "TestRepeat" : {
+            "description": "number of repetitions", 
+            "type": "string"
+      }
+  }
+}

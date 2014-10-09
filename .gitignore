@@ -17,3 +17,8 @@ nytprof.out
 /pm_to_blib
 *.o
 *.bs
+.metadata
+eclipse/
+.gitignire
+README.txt
+

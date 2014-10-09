@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<TMPL_INCLUDE NAME="Header.html">
+
+	<body>
+
+		<link rel="stylesheet" type="text/css" media="screen" href="css/ui-lightness/jquery-ui-1.10.4.custom.css" />
+		<link rel="stylesheet" type="text/css" media="screen" href="css/ui.jqgrid.css" />
+
+		<script src="js/jquery-2.1.1.js" type="text/javascript"></script>
+
+		<script src="js/i18n/grid.locale-en.js" type="text/javascript"></script>
+		<script src="js/jquery.jqGrid.js" type="text/javascript"></script>
+
+		<script src="js/jwe.js" type="text/javascript"></script>
+
+		<script>
+		
+			jQuery(document).ready(function()
+			{ 
+	  			fileManagerInitToolbar("folderup", "copyfile", "cutfile", "deletefile", "pastefile");
+	  			
+	  			fileManagerCreateGrid('list', "<TMPL_VAR NAME=UPLOAD_FOLDER>", "<TMPL_VAR NAME=UPLOAD_FOLDER>", false);
+	  			
+	  			fileManagerSubmitForm('list', 'uploadFiles', '<h3>Thank You! Your upload is complete...</h3>', 'files');
+		  		
+			}); 
+		</script>
+		
+		<div id="main-wrapper">
+<TMPL_INCLUDE NAME="Title.html">
+
+			<div id="container">
+				
+				<table>
+					<tr valign="center">
+						<td>
+							<button type="submit"  onclick="fileManagerBrowseFolder('list', '<TMPL_VAR NAME=UPLOAD_FOLDER>', 1, 1)">
+								<img src="images/Home-icon.png" alt="Home"/>
+							</button>
+						</td>
+						<td>
+							<button id="folderup" type="submit" onclick="fileManagerBrowseFolder('list', '..', 0, 0)">
+								<img src="images/arrow-up-icon.png" alt="Go folder up"/>
+							</button>
+						</td>
+						<td>
+							<button type="submit" onclick="fileManagerCreateFolder('list')">
+								<img src="images/Add-icon.png" alt="Create folder" />
+							</button>
+						</td>
+						<td>
+							<button id="copyfile" type="submit" onclick="fileManagerCopyFileToClipboard('list')" disabled="disabled">
+								<img src="images/Files-Copy-File-icon_32.png" />
+							</button>
+						</td>
+						<td>
+							<button id="cutfile" type="submit" onclick="fileManagerCutFileToClipboard('list')" disabled="disabled">
+								<img src="images/Files-Cut-File-icon_32.png" />
+							</button>
+						</td>
+						<td>
+							<button id="pastefile" type="submit" onclick="fileManagerPasteFile('list')" disabled="disabled">
+								<img src="images/Files-Paste-File-icon_32.png" />
+							</button>
+						</td>
+						<td>
+							<button id="deletefile" type="submit" onclick="fileManagerDeleteFile('list')" disabled="disabled">
+								<img src="images/File-Delete-icon.png" alt="Delete file" />
+							</button>
+						</td>
+						<td>
+							<button id="downloadfile" type="submit"><img src="images/Files-Download-File-icon.png" /></button>
+						</td>
+						<td>
+							<button type="submit" onclick="fileManagerUploadFile('files','uploadFileButton')">
+								<img src="images/Files-Upload-File-icon_32.png" />
+							</button>
+						</td>
+						<td>
+							<div style="display:none">
+								<form id="uploadFiles" action="performAction.pl" method='post' enctype="multipart/form-data">
+									<button id="uploadFileButton" type="submit">
+										<img src="images/Files-Upload-File-icon_32.png" />
+									</button>
+									<input type="file" id="files" name="files" multiple />
+									<input type="hidden" id="uploadFolder" name="uploadFolder" value="<TMPL_VAR NAME=UPLOAD_FOLDER>" />
+									<input type="hidden" name="performAction" value="uploadFile" />
+								</form>
+							</div>
+						</td>
+					</tr>
+				</table>
+	
+				<table id="list" style="width:100%;"></table>
+			
+			</div>
+			
+			<iframe name='uploadIframe' src="about:blank" style="display:none"/>
+
+		</div>
+	</body>
+</html>

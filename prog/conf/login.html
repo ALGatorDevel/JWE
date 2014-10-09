@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<TMPL_INCLUDE NAME="Header.html">
+
+	<body>
+		<div id="main-wrapper">
+
+<TMPL_INCLUDE NAME="Title.html">
+
+			<div id="container">
+				<form action=jwe.pl method="post">
+			        
+			        <input type="hidden" name="backLink" value="<TMPL_VAR NAME=BACK_LINK>" />
+			        
+			        <div class="modal-header">
+			            <h3>Prijavljanje v urejevalnik JSON datotek</h3>
+			        </div>
+			        
+			        <div class="modal-body">
+						<p class="loginFont" style="border-bottom:1px dotted lightgray;">
+							<strong>Prijavite se</strong>
+							s svojim uporabniškim imenom in geslom.
+							<br />
+						</p>
+
+						<br />
+
+						<table align="center" border="0" style="width:100%" class="loginFont">
+						    <tr>
+						        <td style="text-align:right">Uporabniško ime:</td>
+						        <td><input class="input-normal" id="Username" name="username" placeholder="uporabnik" type="text" value="" /></td>
+						    </tr>
+						    <tr style="border-bottom:1px solid gray">
+						        <td style="text-align:right">Geslo:</td>
+						        <td><input class="input-normal" autocomplete="off" id="Password" name="password" type="password" /></td>
+						    </tr>
+						</table>
+					</div>
+
+			        <div class="modal-footer">
+			            <input type="submit" value="Login" class="login_btn" />
+			        </div>
+			        
+
+
+
+<!-- 
+
+
+
+
+
+					<table align="center" border="0" style="border:1px solid black; background:lightgray">
+					    <tr>
+					        <td>Username:</td>
+					        <td><input type="text" name="username" length=30 style="border:1px solid gray"></td>
+					    </tr>
+					    <tr>
+					        <td>Password:</td>
+					        <td><input type="password" name="password" length=30 style="border:1px solid gray"></td>
+					    </tr>
+					    <tr>
+					        <td align="center" colspan="2"><input type=SUBMIT value="Login"></td>
+					    </tr>
+					</table>
+					 -->
+				</form>
+			</div>
+		</div>
+	</body>
+</html>
+

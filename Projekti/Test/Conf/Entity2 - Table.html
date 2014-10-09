@@ -1,0 +1,6 @@
+				<table id="entityTable" class="entity2Table2" cellpadding="1" cellspacing="1"><TMPL_LOOP NAME=SETTINGS>
+<TMPL_IF NAME=TYPE_FILE><TMPL_INCLUDE NAME="Entity2 - Table Row File.html">
+</TMPL_IF><TMPL_IF NAME=TYPE_STRING><TMPL_INCLUDE NAME="Entity2 - Table Row String.html">
+</TMPL_IF><TMPL_IF NAME=TYPE_FILES><TMPL_INCLUDE NAME="Entity2 - Table Row Files.html">
+</TMPL_IF><TMPL_IF NAME=TYPE_ENTITIES><TMPL_INCLUDE NAME="Entity2 - Table Row Entities.html"></TMPL_IF></TMPL_LOOP>
+				</table>

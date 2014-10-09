@@ -1,0 +1,12 @@
+{
+   "TestSet" : {
+      "TestRepeat" : "10",
+      "ShortName" : "TS1",
+      "N" : "10",
+      "TestSetFiles" : [
+         "test.txt"
+      ],
+      "Desc" : "TestSet1",
+      "Name" : "TestSet1"
+   }
+}

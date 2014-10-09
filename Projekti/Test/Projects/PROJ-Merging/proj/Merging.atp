@@ -1,0 +1,15 @@
+{
+   "Project" : {
+      "AlgorithmTPL" : "SortAbsAlgorithm",
+      "TestCaseClass" : "SortTestCase",
+      "Date" : "Danes",
+      "Algorithms" : [
+         "ABC"
+      ],
+      "TestSetIteratorClass" : "SortTestSetIterator",
+      "TestSets" : [],
+      "Description" : "Kr nekej",
+      "Name" : "a",
+      "Author" : "Miha Pavliha"
+   }
+}

@@ -1,0 +1,2 @@
+select disk 0
+attr disk clear readonly

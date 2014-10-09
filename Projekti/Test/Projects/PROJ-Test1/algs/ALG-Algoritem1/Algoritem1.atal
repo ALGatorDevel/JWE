@@ -1,0 +1,11 @@
+{
+   "Algorithm" : {
+      "ShortName" : "A4",
+      "AlgorithmClass" : "SortTestCase.java",
+      "Name" : "Al1",
+      "Description" : "Opis",
+      "Date" : "Danes",
+      "Author" : "Marko",
+      "Algorithms" : []
+   }
+}

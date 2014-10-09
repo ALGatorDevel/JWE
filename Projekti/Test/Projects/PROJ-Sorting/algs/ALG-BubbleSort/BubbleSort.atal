@@ -1,0 +1,11 @@
+{
+   "Algorithm" : {
+      "ShortName" : "BS",
+      "AlgorithmClass" : "BubblesortSortAlgorithm.java",
+      "Name" : "BubbleSort6",
+      "Description" : "The classical bubble sort algorithm",
+      "Date" : "07/30/2013",
+      "Author" : "BS and Tomaz",
+      "Algorithms" : []
+   }
+}
