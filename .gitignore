@@ -19,6 +19,6 @@ nytprof.out
 *.bs
 .metadata
 eclipse/
-.gitignire
+.gitignore
 README.txt
 toGithub
