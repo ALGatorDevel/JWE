@@ -201,7 +201,7 @@ sub listProjects
 	# tega bom projekte prebral iz datotecnega sistema (vse mape PROJ-*) 
 	my $projectSettings = EntityTools::getProjectSettings($projectId);
 	my $projectPath = EntityTools::getProjectRootPath($projectId);
-	my @val = `ls $projectPath/Projects/`;
+	my @val = `ls $projectPath/projects/`;
 	
 	my @loop_data = ();
 	
@@ -400,7 +400,7 @@ sub showOverviewPage
 	my $projectRootPath = EntityTools::getProjectRootPath($projectId);
 	
 	
-	my $filename = $projectRootPath . "/Conf/overview.html"; 
+	my $filename = $projectRootPath . "/conf/overview.html"; 
 
 	my $template = HTML::Template->new(filename => $filename);
 	
@@ -438,11 +438,11 @@ sub editEntity
 	my $p6         = $_[8];
 	my $index;
 	
-	my $filename = "/Conf/Entity2.html";
+	my $filename = "/conf/Entity2.html";
 	
 	if ($editSingleEntity == 1)
 	{
-		$filename = "/Conf/Entity2 - clean.html";
+		$filename = "/conf/Entity2 - clean.html";
 	}
 	
 	$filename = EntityTools::getProjectRootPath($projectId) . $filename; 
@@ -556,7 +556,7 @@ sub editSchemes
 {
 	my $projectId  = $_[0];
 
-	my $filename = EntityTools::getProjectRootPath($projectId) . "/Conf/EditSchemes.html"; 
+	my $filename = EntityTools::getProjectRootPath($projectId) . "/conf/EditSchemes.html"; 
 	
 	my $template = HTML::Template->new(filename => $filename);
 
@@ -585,7 +585,7 @@ sub editScheme
 	my $projectId  = $_[0];
 	my $entityType = $_[1];
 
-	my $filename = EntityTools::getProjectRootPath($projectId) . "/Conf/EditScheme.html"; 
+	my $filename = EntityTools::getProjectRootPath($projectId) . "/conf/EditScheme.html"; 
 
 	my $template = HTML::Template->new(filename => $filename);
 	

@@ -108,7 +108,7 @@ sub getProjectList
 	}
 	
 	# get array of defined projects
-	$val = $projectSettings->{Projects};
+	$val = $projectSettings->{projects};
 	
 	return $val;
 }
@@ -169,7 +169,7 @@ sub getEntitySchemeRootPath
 		return $schemaFilePath;
 	}
 
-	$schemaFilePath = $projectRootPath . "/Schema";
+	$schemaFilePath = $projectRootPath . "/schema";
 
 	return $schemaFilePath;
 }
@@ -294,7 +294,7 @@ sub getEntityFilename
 	$entityFilename =~ s/\$5/$p5/g if defined($p5);
 	$entityFilename =~ s/\$6/$p6/g if defined($p6);
 	
-	$entityFilename = $projectsRootPath . "/Projects/" . $entityFilename;
+	$entityFilename = $projectsRootPath . "/projects/" . $entityFilename;
 	
 	$val = $entityFilename;
 	
@@ -466,7 +466,7 @@ sub readEntityFile
 		return $txt;
 	}
 
-	my $filename = $projectsRootPath . "/Projects/" . $p1 . "/" . $entityName;
+	my $filename = $projectsRootPath . "/projects/" . $p1 . "/" . $entityName;
 	
 	my @fileContent = Tools::readFileArray($filename);
 
@@ -507,7 +507,7 @@ sub writeEntityFile
 		return "";
 	}
 
-	my $filename = $projectsRootPath . "/Projects/" . $p1 . "/" . $entityName;
+	my $filename = $projectsRootPath . "/projects/" . $p1 . "/" . $entityName;
 	
 	my @fileContent = Tools::writeFile($filename, $txt);
 
@@ -741,7 +741,7 @@ sub listEntitySettings
 
 		if (uc($propertyType) eq "FILES")
 		{
-			my $root = $projectRootPath . "/Projects/" . $propertyValue->{root};
+			my $root = $projectRootPath . "/projects/" . $propertyValue->{root};
 
 			if (defined($root))
 			{
@@ -1026,7 +1026,7 @@ sub addProject
 
 	my $data = getConfigSettings();
 	
-	my $val = $data->{$projectId}->{'Projects'};
+	my $val = $data->{$projectId}->{'projects'};
 	
 	my @values;
 	
@@ -1037,7 +1037,7 @@ sub addProject
 	
 	push(@values, $entityName);
 		
-	$data->{$projectId}->{'Projects'} = \@values;
+	$data->{$projectId}->{'projects'} = \@values;
 
 	my $filename = getConfigFilePath();	
 	JsonHelper::writeJSONFile($filename, $data);	
@@ -1062,7 +1062,7 @@ sub deleteProject
 
 	my $data = getConfigSettings();
 	
-	my $val = $data->{$projectId}->{'Projects'};
+	my $val = $data->{$projectId}->{'projects'};
 	
 	my @values;
 	
@@ -1074,7 +1074,7 @@ sub deleteProject
 		}
 	}
 	
-	$data->{$projectId}->{'Projects'} = \@values;
+	$data->{$projectId}->{'projects'} = \@values;
 
 	my $filename = getConfigFilePath();	
 	JsonHelper::writeJSONFile($filename, $data);	

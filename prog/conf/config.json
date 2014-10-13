@@ -4,5 +4,11 @@
       "Id" : "AT",
       "ProjectsRoot" : "JWE_PROJECTS_ROOT/Test",
       "Name" : "WinAT"
+   },
+   "ALGatorDataRoot" : 
+   {
+      "Id" : "ALGatorDataRoot",
+      "ProjectsRoot" : "JWE_PROJECTS_ROOT/data_root",
+      "Name" : "ALGator data_root"
    }
 }
