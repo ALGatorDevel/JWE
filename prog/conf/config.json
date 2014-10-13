@@ -3,12 +3,14 @@
    {
       "Id" : "AT",
       "ProjectsRoot" : "JWE_PROJECTS_ROOT/Test",
-      "Name" : "WinAT"
+      "Name" : "WinAT",
+      "Desc" : "Test project for debugging"
    },
    "ALGatorDataRoot" : 
    {
       "Id" : "ALGatorDataRoot",
       "ProjectsRoot" : "JWE_PROJECTS_ROOT/data_root",
-      "Name" : "ALGator data_root"
+      "Name" : "ALGator data_root",
+      "Desc" : "Main ALGator project"
    }
 }

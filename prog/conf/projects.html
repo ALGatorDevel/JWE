@@ -22,7 +22,8 @@
 								
 				<p class="pageDescription">Obstoječi projekti:</p>
 				<ul><TMPL_LOOP NAME=PROJECTS>
-					<li><a class="pageDescription" href="javascript:openLocation('<TMPL_VAR NAME=PROJECT_ID>','','','')" ><TMPL_VAR NAME=PROJECT_NAME></a></li>
+					<li><a class="pageDescription" href="javascript:openLocation('<TMPL_VAR NAME=PROJECT_ID>','','','')" ><TMPL_VAR NAME=PROJECT_NAME></a> 
+					       <span class="pageDescription"> (<TMPL_VAR NAME=PROJECT_DESC>)</span></li>
 				</TMPL_LOOP>
 				</ul>
 			</div>
