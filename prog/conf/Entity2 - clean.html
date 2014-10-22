@@ -1,0 +1,265 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<TMPL_INCLUDE NAME="Header.html">
+	<body>
+
+		<link rel="stylesheet" type="text/css" media="screen" href="css/ui-lightness/jquery-ui-1.10.4.custom.css" />
+		<link rel="stylesheet" type="text/css" media="screen" href="css/ui.jqgrid.css" />
+		<link rel="stylesheet" href="codemirror/lib/codemirror.css" />
+		<link rel="stylesheet" href="css/jwe.css" />
+
+		<script src="codemirror/lib/codemirror.js" type="text/javascript"></script>
+		<script src="codemirror/addon/edit/matchbrackets.js" type="text/javascript"></script>
+		<script src="codemirror/mode/clike/clike.js" type="text/javascript"></script>
+
+		<script src="js/jquery-2.1.1.js" type="text/javascript"></script>
+		<script src="js/jquery.corner.js" type="text/javascript"></script>
+		<script src="js/i18n/grid.locale-en.js" type="text/javascript"></script>
+		<script src="js/jquery.jqGrid.js" type="text/javascript"></script>
+
+		<script src="js/jwe.js" type="text/javascript"></script>
+		<script src="codemirror/mode/css/css.js"></script>
+
+		<script>
+			var codeMirrorEditor = new Object();
+			
+			jQuery(document).ready(function()
+			{ 
+				// Get the dimensions of the browser window
+				var winwidth = $(window).width();
+				var winheight = $(window).height();
+				
+				// Get the dimensions of the layer
+				var layerwidth = FileManagerDiv.clientWidth;
+				var layerheight = FileManagerDiv.clientHeight;
+				
+				// Centre the layer
+				FileManagerDiv.style.left = ((winwidth - layerwidth)/2) + "px";
+				FileManagerDiv.style.top = ((winheight - layerheight)/2) + "px";
+
+				$('.roundedCorner2').corner("keep");
+				$('.roundedCorner3').corner();
+
+				$('.roundedCornerFileEditor').corner();
+				$('.roundedCornerEntities').corner("keep");
+				$('.roundedCornerEntityEditor').corner();
+				
+				$('.thankyouModal').corner();
+
+				registerSubmitForm('saveEntity2', '<h3>Entity is saved.</h3>', '', null, "0", 'errorMessage');
+				
+	  			fileManagerInitToolbar("folderup", "copyfile", "cutfile", "deletefile", "pastefile");
+	  			fileManagerCreateGrid('list', "<TMPL_VAR NAME=UPLOAD_FOLDER>", "<TMPL_VAR NAME=UPLOAD_FOLDER>", true);
+	  			fileManagerSubmitForm('list', 'uploadFiles', '<h3>Thank You! Your upload is complete...</h3>', 'files');
+				hideElement("fileManager", 1);
+			}); 
+		
+			
+		</script>			
+
+		<div id="fileManager" class="transparent" style="width:100%;height:100%;z-index:1; position:absolute; display:none1">
+			<div id="FileManagerDiv" class="roundedCorner3" style="width:80%; height:80%; margin:auto; position:absolute; background:white; border:1px solid gray; z-index:10; display:none1">
+				<table style="width:100%">
+					<tr>
+						<td style="width:100%" align="right">
+				 			<button id="closeFileManager" type="submit" onclick="closeFileManager(true, 'container', 'list', 'fileManager');">
+								<img src="images/FileManager-Apply-32.png"></img>
+							</button>
+				 			<button id="closeFileManager" type="submit" onclick="closeFileManager(false, 'container', 'list', 'fileManager');">
+								<img src="images/FileManager-CloseWindow-32.png"></img>
+							</button>
+						</td>
+					</tr>
+				</table>
+				<table>
+					<tr valign="center">
+						<td>
+							<button type="submit"  onclick="fileManagerBrowseFolder('list', '<TMPL_VAR NAME=UPLOAD_FOLDER>', 1, 1)">
+								<img src="images/Home-icon.png" alt="Home"/>
+							</button>
+						</td>
+						<td>
+							<button id="folderup" type="submit" onclick="fileManagerBrowseFolder('list', '..', 0, 0)">
+								<img src="images/arrow-up-icon.png" alt="Go folder up"/>
+							</button>
+						</td>
+						<td>
+							<button type="submit" onclick="fileManagerCreateFolder('list')">
+								<img src="images/Add-icon.png" alt="Create folder" />
+							</button>
+						</td>
+						<td>
+							<button id="copyfile" type="submit" onclick="fileManagerCopyFileToClipboard('list')" disabled="disabled">
+								<img src="images/Files-Copy-File-icon_32.png" />
+							</button>
+						</td>
+						<td>
+							<button id="cutfile" type="submit" onclick="fileManagerCutFileToClipboard('list')" disabled="disabled">
+								<img src="images/Files-Cut-File-icon_32.png" />
+							</button>
+						</td>
+						<td>
+							<button id="pastefile" type="submit" onclick="fileManagerPasteFile('list')" disabled="disabled">
+								<img src="images/Files-Paste-File-icon_32.png" />
+							</button>
+						</td>
+						<td>
+							<button id="deletefile" type="submit" onclick="fileManagerDeleteFile('list')" disabled="disabled">
+								<img src="images/File-Delete-icon.png" alt="Delete file" />
+							</button>
+						</td>
+						<td>
+							<button id="downloadfile" type="submit"><img src="images/Files-Download-File-icon.png" /></button>
+						</td>
+						<td>
+							<button type="submit" onclick="fileManagerUploadFile('files','uploadFileButton')">
+								<img src="images/Files-Upload-File-icon_32.png" />
+							</button>
+						</td>
+						<td>
+							<div style="display:none">
+								<form id="uploadFiles" action="performAction.pl" method='post' enctype="multipart/form-data">
+									<button id="uploadFileButton" type="submit">
+										<img src="images/Files-Upload-File-icon_32.png" />
+									</button>
+									<input type="file" id="files" name="files" multiple />
+									<input type="hidden" id="uploadFolder" name="uploadFolder" value="<TMPL_VAR NAME=UPLOAD_FOLDER>" />
+									<input type="hidden" name="performAction" value="uploadFile" />
+								</form>
+							</div>
+						</td>
+					</tr>
+				</table>
+	
+				<table id="list" style="width:100%;"></table>
+			</div>
+		</div>
+
+		<div id="main-wrapper2">
+
+		<div id="container2">
+		
+			<span id="errorMessage"></span>
+			
+ 			<form id="saveEntity2" action="performAction.pl" method="get">
+ 				
+ 				<input type="hidden" name="performAction" value="saveEntity" />
+	 			<input type="hidden" name="pId"           value="<TMPL_VAR NAME=PROJECT_ID>" />
+	 			<input type="hidden" name="eType"         value="<TMPL_VAR NAME=ENTITY_TYPE>" />
+	 			<input type="hidden" name="eName"         value="<TMPL_VAR NAME=ENTITY_NAME>" />
+ 	 			<input type="hidden" name="p1"            value="<TMPL_VAR NAME=P1>" />
+	 			<input type="hidden" name="p2"            value="<TMPL_VAR NAME=P2>" />
+	 			<input type="hidden" name="p3"            value="<TMPL_VAR NAME=P3>" />
+	 			<input type="hidden" name="p4"            value="<TMPL_VAR NAME=P4>" />
+	 			<input type="hidden" name="p5"            value="<TMPL_VAR NAME=P5>" />
+	 			<input type="hidden" name="p6"            value="<TMPL_VAR NAME=P6>" />
+ 			
+				<button id="saveEntityButton" type="submit" style="display:none">Submit</button><br />
+
+<TMPL_INCLUDE NAME="Entity2 - Table.html">
+				
+ 			</form>
+			
+			<br />
+			
+			<table id="projectSettingsTable" class="projectSettingsTable" style="display:none">
+				<TMPL_LOOP NAME="SETTINGS"><TMPL_IF NAME="TYPE_FILE"><tr>
+					<td>	
+						<div>
+							<form id="<TMPL_VAR NAME=INDEX>_uploadFilesForm" action="performAction.pl" method='post' enctype="multipart/form-data">
+								<button id="<TMPL_VAR NAME=INDEX>_uploadFileButton" type="submit"><img src="images/Files-Upload-File-icon_24.png" /></button>
+								<input type="file" id="<TMPL_VAR NAME=INDEX>_files" name="<TMPL_VAR NAME=INDEX>_files" length=30 style="border:0px solid gray" />
+
+					 			<input type="hidden" name="filesId" value="<TMPL_VAR NAME=INDEX>_files" />
+					 			<input type="hidden" name="sessionId" value="<TMPL_VAR NAME=SESSION_ID>" />
+					 			<input type="hidden" name="pId" value="<TMPL_VAR NAME=PROJECT_ID>" />
+					 			<input type="hidden" name="eType" value="<TMPL_VAR NAME=ENTITY_TYPE>" />
+					 			<input type="hidden" name="$1" value="<TMPL_VAR NAME=ROOT>" />
+								<input type="hidden" name="performAction" value="uploadFile2" />
+								
+								<TMPL_IF NAME=KEY></TMPL_IF>
+								
+							</form>
+							<script>
+							jQuery(document).ready(function()
+							{ 
+								registerSubmitForm2('<TMPL_VAR NAME=INDEX>_uploadFilesForm', '<h3>File is uploaded.</h3>', '<TMPL_VAR NAME=INDEX>_files', null, "1", "errorMessage");
+							}); 
+							</script>
+						</div>
+					</td>
+				</tr></TMPL_IF><TMPL_IF NAME="TYPE_ENTITIES"><TMPL_LOOP NAME="VALUES"><TMPL_LOOP NAME="ENTITIES"><TMPL_IF NAME="TYPE_FILE"><tr>
+					<td>	
+						<div>
+							<form id="<TMPL_VAR NAME=INDEX>_uploadFilesForm" action="performAction.pl" method='post' enctype="multipart/form-data">
+								<button id="<TMPL_VAR NAME=INDEX>_uploadFileButton" type="submit"><img src="images/Files-Upload-File-icon_24.png" /></button>
+								<input type="file" id="<TMPL_VAR NAME=INDEX>_files" name="<TMPL_VAR NAME=INDEX>_files" length=30 style="border:0px solid gray" />
+
+					 			<input type="hidden" name="filesId" value="<TMPL_VAR NAME=INDEX>_files" />
+					 			<input type="hidden" name="sessionId" value="<TMPL_VAR NAME=SESSION_ID>" />
+					 			<input type="hidden" name="pId" value="<TMPL_VAR NAME=PROJECT_ID>" />
+					 			<input type="hidden" name="eType" value="<TMPL_VAR NAME=ENTITY_TYPE>" />
+					 			<input type="hidden" name="$1" value="<TMPL_VAR NAME=ROOT>" />
+								<input type="hidden" name="performAction" value="uploadFile2" />
+							</form>
+							<script>
+							jQuery(document).ready(function()
+							{ 
+								registerSubmitForm2('<TMPL_VAR NAME=INDEX>_uploadFilesForm', '<h3>File is uploaded.</h3>', '<TMPL_VAR NAME=INDEX>_files', null, "1", "errorMessage");
+							}); 
+							</script>
+						</div>
+					</td>
+				</tr></TMPL_IF><TMPL_IF NAME="TYPE_ENTITIES"><TMPL_LOOP NAME="VALUES"><TMPL_LOOP NAME="ENTITIES"><TMPL_IF NAME="TYPE_FILE"><tr>
+					<td>	
+						<div>
+							<form id="<TMPL_VAR NAME=INDEX>_uploadFilesForm" action="performAction.pl" method='post' enctype="multipart/form-data">
+								<button id="<TMPL_VAR NAME=INDEX>_uploadFileButton" type="submit"><img src="images/Files-Upload-File-icon_24.png" /></button>
+								<input type="file" id="<TMPL_VAR NAME=INDEX>_files" name="<TMPL_VAR NAME=INDEX>_files" length=30 style="border:0px solid gray" />
+
+					 			<input type="hidden" name="filesId" value="<TMPL_VAR NAME=INDEX>_files" />
+					 			<input type="hidden" name="sessionId" value="<TMPL_VAR NAME=SESSION_ID>" />
+					 			<input type="hidden" name="pId" value="<TMPL_VAR NAME=PROJECT_ID>" />
+					 			<input type="hidden" name="eType" value="<TMPL_VAR NAME=ENTITY_TYPE>" />
+					 			<input type="hidden" name="$1" value="<TMPL_VAR NAME=ROOT>" />
+								<input type="hidden" name="performAction" value="uploadFile2" />
+							</form>
+							<script>
+							jQuery(document).ready(function()
+							{ 
+								registerSubmitForm2('<TMPL_VAR NAME=INDEX>_uploadFilesForm', '<h3>File is uploaded.</h3>', '<TMPL_VAR NAME=INDEX>_files', null, "1", "errorMessage");
+							}); 
+							</script>
+						</div>
+					</td>
+				</tr></TMPL_IF><TMPL_IF NAME="TYPE_ENTITIES"><TMPL_LOOP NAME="VALUES"><TMPL_LOOP NAME="ENTITIES"><TMPL_IF NAME="TYPE_FILE"><tr>
+					<td>	
+						<div>
+							<form id="<TMPL_VAR NAME=INDEX>_uploadFilesForm" action="performAction.pl" method='post' enctype="multipart/form-data">
+								<button id="<TMPL_VAR NAME=INDEX>_uploadFileButton" type="submit"><img src="images/Files-Upload-File-icon_24.png" /></button>
+								<input type="file" id="<TMPL_VAR NAME=INDEX>_files" name="<TMPL_VAR NAME=INDEX>_files" length=30 style="border:0px solid gray" />
+
+					 			<input type="hidden" name="filesId" value="<TMPL_VAR NAME=INDEX>_files" />
+					 			<input type="hidden" name="sessionId" value="<TMPL_VAR NAME=SESSION_ID>" />
+					 			<input type="hidden" name="pId" value="<TMPL_VAR NAME=PROJECT_ID>" />
+					 			<input type="hidden" name="eType" value="<TMPL_VAR NAME=ENTITY_TYPE>" />
+					 			<input type="hidden" name="$1" value="<TMPL_VAR NAME=ROOT>" />
+								<input type="hidden" name="performAction" value="uploadFile2" />
+							</form>
+							<script>
+							jQuery(document).ready(function()
+							{
+								registerSubmitForm2('<TMPL_VAR NAME=INDEX>_uploadFilesForm', '<h3>File is uploaded.</h3>', '<TMPL_VAR NAME=INDEX>_files', null, "1", "errorMessage");
+							}); 
+							</script>
+						</div>
+					</td>
+				</tr></TMPL_IF></TMPL_LOOP></TMPL_LOOP></TMPL_IF></TMPL_LOOP></TMPL_LOOP></TMPL_IF></TMPL_LOOP></TMPL_LOOP></TMPL_IF>
+				</TMPL_LOOP>
+			</table>
+
+		</div>
+		</div>
+	</body>
+</html>

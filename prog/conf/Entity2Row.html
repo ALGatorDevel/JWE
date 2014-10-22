@@ -1,0 +1,30 @@
+<tr id="<TMPL_VAR NAME=ELEMENT_ID>_rowEntity">
+	<td class="entity2TableColumn1" colspan="2">
+		<input id="<TMPL_VAR NAME=ELEMENT_ID>_entityTextField" class="entityValue" name="<TMPL_VAR NAME=ELEMENT_ID>" type="text" readonly="readonly" value="<TMPL_VAR NAME=VALUE>" />
+	</td>
+	<td class="entity2TableColumn2">
+		<img id="<TMPL_VAR NAME=ELEMENT_ID>_editImage" onclick="toggleDisplay('<TMPL_VAR NAME=ELEMENT_ID>_rowEntityEditor')" src="images/Files-Edit-File-icon_24.png" />
+	</td>
+	<td class="entity2TableColumn3">
+		<img onclick="entityDeleteEntity('<TMPL_VAR NAME=ELEMENT_ID>_rowEntity', '<TMPL_VAR NAME=ELEMENT_ID>_rowEntityEditor', '<TMPL_VAR NAME=ELEMENT_ID>_entityTextField', '<TMPL_VAR NAME=PARENT_INDEX>_value', '<TMPL_VAR NAME=PARENT_INDEX>', 'saveEntityButton')" src="images/delete-icon_24.png" />
+	</td>
+</tr><tr id="<TMPL_VAR NAME=ELEMENT_ID>_rowEntityEditor" style="">
+	<td colspan="4">
+<TMPL_INCLUDE NAME="Entity2 - Table4.html">
+	</td>
+</tr><TMPL_LOOP NAME="ENTITIES"><TMPL_IF NAME="TYPE_FILE"><tr>
+	<td>	
+		<div>
+			<form id="<TMPL_VAR NAME=INDEX>_uploadFilesForm" action="performAction.pl" method='post' enctype="multipart/form-data">
+				<button id="<TMPL_VAR NAME=INDEX>_uploadFileButton" type="submit"><img src="images/Files-Upload-File-icon_24.png" /></button>
+				<input type="file" id="<TMPL_VAR NAME=INDEX>_files" name="<TMPL_VAR NAME=INDEX>_files" length=30 style="border:0px solid gray" />
+
+	 			<input type="hidden" name="filesId" value="<TMPL_VAR NAME=INDEX>_files" />
+	 			<input type="hidden" name="pId" value="<TMPL_VAR NAME=PROJECT_ID>" />
+	 			<input type="hidden" name="eType" value="<TMPL_VAR NAME=ENTITY_TYPE>" />
+	 			<input type="hidden" name="$1" value="<TMPL_VAR NAME=ROOT>" />
+				<input type="hidden" name="performAction" value="uploadFile2" />
+			</form>
+		</div>
+	</td>
+</tr></TMPL_IF></TMPL_LOOP>

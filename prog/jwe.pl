@@ -370,7 +370,10 @@ sub showOverviewPage {
 
 	my $projectRootPath = EntityTools::getProjectRootPath($projectId);
 
-	my $filename = $projectRootPath . "/conf/overview.html";
+	#td: path - $projectRootPath -> $pwd
+	# my $filename = $projectRootPath . "/conf/overview.html";
+    my $filename = $pwd . "/conf/overview.html";
+
 
 	my $template = HTML::Template->new( filename => $filename );
 
@@ -413,8 +416,10 @@ sub editEntity {
 		$filename = "/conf/Entity2 - clean.html";
 	}
 
-	$filename = EntityTools::getProjectRootPath($projectId) . $filename;
-
+    #td: path - $projectRootPath -> $pwd
+	# $filename = EntityTools::getProjectRootPath($projectId) . $filename;
+    $filename = $pwd . $filename;
+    
 	my $template = HTML::Template->new(
 		filename          => $filename,
 		loop_context_vars => 1,
@@ -528,8 +533,10 @@ sub listSchemes {
 sub editSchemes {
 	my $projectId = $_[0];
 
-	my $filename =
-	  EntityTools::getProjectRootPath($projectId) . "/conf/EditSchemes.html";
+    #td: path - $projectRootPath -> $pwd
+	# my $filename =
+	#  EntityTools::getProjectRootPath($projectId) . "/conf/EditSchemes.html";
+	my $filename = $pwd . "/conf/EditSchemes.html";
 
 	my $template = HTML::Template->new( filename => $filename );
 
@@ -558,8 +565,11 @@ sub editScheme {
 	my $projectId  = $_[0];
 	my $entityType = $_[1];
 
-	my $filename =
-	  EntityTools::getProjectRootPath($projectId) . "/conf/EditScheme.html";
+    #td: path - $projectRootPath -> $pwd
+	# my $filename =
+	#  EntityTools::getProjectRootPath($projectId) . "/conf/EditScheme.html";
+    my $filename = $pwd . "/conf/EditScheme.html";
+
 
 	my $template = HTML::Template->new( filename => $filename );
 

@@ -1,0 +1,53 @@
+					<tr id="<TMPL_VAR NAME=ELEMENT_ID>_rowFile">
+						<td class="entity2TableColumn0">
+							<input class="keyDescriptionFile" type="text" readonly="readonly" value="<TMPL_VAR NAME=KEY_DESCRIPTION>" />
+						</td>
+						<td class="entity2TableColumn1">
+							<input id="<TMPL_VAR NAME=ELEMENT_ID>_filename" class="entityFileValue" type="text" readonly="readonly" name="<TMPL_VAR NAME=ELEMENT_ID>" length=30 value="<TMPL_VAR NAME=VALUE>" />
+						</td>
+						<td class="entity2TableColumn2">
+							<img id="<TMPL_VAR NAME=INDEX>_uploadImage" onclick="entityUploadFile('<TMPL_VAR NAME=ELEMENT_ID>', '<TMPL_VAR NAME=INDEX>', 'saveEntityButton')" src="images/Files-Upload-File-icon_24.png" />
+							<img id="<TMPL_VAR NAME=INDEX>_editImage"   onclick="entityEditFile('<TMPL_VAR NAME=PROJECT_ID>','<TMPL_VAR NAME=ENTITY_TYPE>','<TMPL_VAR NAME=ROOT>','<TMPL_VAR NAME=ELEMENT_ID>_filename','<TMPL_VAR NAME=ELEMENT_ID>_rowFileEditor', codeMirrorEditor['<TMPL_VAR NAME=INDEX>'])" src="images/Files-Edit-File-icon_24.png" />
+						</td>
+						<td class="entity2TableColumn3">
+							<img id="<TMPL_VAR NAME=INDEX>_deleteImage" onclick="entityDeleteFile('<TMPL_VAR NAME=INDEX>','<TMPL_VAR NAME=ELEMENT_ID>_filename', '<TMPL_VAR NAME=ELEMENT_ID>_rowFileEditor', 'saveEntityButton')" src="images/delete-icon_24.png" />
+						</td>
+						<script><TMPL_IF NAME=NOT_EMPTY>
+							showElement('<TMPL_VAR NAME=INDEX>_editImage');
+							showElement('<TMPL_VAR NAME=INDEX>_deleteImage');
+							hideElement('<TMPL_VAR NAME=INDEX>_uploadImage');<TMPL_ELSE>
+							hideElement('<TMPL_VAR NAME=INDEX>_editImage');
+							hideElement('<TMPL_VAR NAME=INDEX>_deleteImage');
+							showElement('<TMPL_VAR NAME=INDEX>_uploadImage');</TMPL_IF>
+						</script>
+					</tr>
+					<tr id="<TMPL_VAR NAME=ELEMENT_ID>_rowFileEditor" style="display:none">
+						<td colspan="4"  style="padding-left:30px">
+							<div class="roundedCornerFileEditor" >
+								<table class="entity2Table2" cellpadding="0" cellspacing="0">
+									<tr>
+										<td>
+											<div class="entity2FileEditorContainer2">
+												<img id="<TMPL_VAR NAME=ELEMENT_ID>_saveFile" onclick="entitySaveFile('<TMPL_VAR NAME=PROJECT_ID>','<TMPL_VAR NAME=ENTITY_TYPE>','<TMPL_VAR NAME=ROOT>', '<TMPL_VAR NAME=ELEMENT_ID>_filename', codeMirrorEditor['<TMPL_VAR NAME=INDEX>'])" src="images/Floppy-Small-icon.png" />
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<div><textarea id="<TMPL_VAR NAME=INDEX>_fileEditorTextArea">
+											</textarea></div>
+										</td>
+									</tr>
+								</table>
+								<script>
+								codeMirrorEditor['<TMPL_VAR NAME=INDEX>'] = CodeMirror.fromTextArea(document.getElementById("<TMPL_VAR NAME=INDEX>_fileEditorTextArea"), {
+							         lineNumbers: true,
+							         lineWrapping: true,
+							         height: "400px",
+							         mode: "text/x-java"
+							       });
+
+							     </script>
+							</div>
+						</td>
+					</tr>

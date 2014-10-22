@@ -144,7 +144,7 @@ function registerSubmitForm(formId, message, fileSelectionId, func, displayMessa
         		 
         		 if (response != "1")
         		 {
-        			 errorText = "Ne morem shraniti entitete!"
+        			 errorText = "Ne morem shraniti entitete!" . $errorText;
         		 }
         		 
         		 $("#" + errorMessageId).text(errorText);

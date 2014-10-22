@@ -395,12 +395,12 @@ sub saveEntity
 				
 				my @parameters = @{$entityProperty->{parameters}};
 				
-				my $pp1 = $parameters[0] if length(@parameters) > 0;
-				my $pp2 = $parameters[0] if length(@parameters) > 1;
-				my $pp3 = $parameters[0] if length(@parameters) > 2;
-				my $pp4 = $parameters[0] if length(@parameters) > 3;
-				my $pp5 = $parameters[0] if length(@parameters) > 4;
-				my $pp6 = $parameters[0] if length(@parameters) > 5;
+				my $pp1 = $parameters[0] if scalar(@parameters) > 0;
+				my $pp2 = $parameters[0] if scalar(@parameters) > 1;
+				my $pp3 = $parameters[0] if scalar(@parameters) > 2;
+				my $pp4 = $parameters[0] if scalar(@parameters) > 3;
+				my $pp5 = $parameters[0] if scalar(@parameters) > 4;
+				my $pp6 = $parameters[0] if scalar(@parameters) > 5;
 				
 				$pp1 =~ s/\{\}/$entityName/g if defined($pp1);
 				$pp2 =~ s/\{\}/$entityName/g if defined($pp2);
@@ -633,6 +633,36 @@ sub listEntitySettings
 		my $propertyDescription = $propertyValue->{description};
 
 		my $notEmpty = 1;
+
+		#td: dodan nov tip - Entity_Name (ime entitete; read-only field)
+		if (uc($propertyType) eq "ENTITY_NAME")
+		{
+			my $value = $entityFileData->{$entityType}->{$propertyKey};
+						
+			my %row_data;
+		
+			$row_data{PARENT_INDEX}  = $parentIndex;
+			$row_data{INDEX}         = $row_data{PARENT_INDEX} . $index;
+			$row_data{ELEMENT_ID}    = $row_data{INDEX}        . "_" . $entityType . "_" . $propertyKey;
+			
+			$row_data{TYPE_ENTITIES} = 0;
+			$row_data{TYPE_FILE}     = 0;
+			$row_data{TYPE_FILES}    = 0;
+			$row_data{TYPE_STRING}   = 0;
+			$row_data{TYPE_ENTITY_NAME}   = 1;
+			
+			$row_data{KEY}             = $propertyKey;			
+			$row_data{KEY_DESCRIPTION} = $propertyDescription;			
+			$row_data{VALIDATION}      = 0;
+			$row_data{ENTITY_TYPE}     = $entityType;
+			
+			$row_data{VALUE}           = $entityName;
+			
+			
+			push(@loop_data, \%row_data);
+			
+			$index = $index + 1;
+		}
 		
 		if (uc($propertyType) eq "STRING")
 		{
@@ -663,11 +693,12 @@ sub listEntitySettings
 			
 			$row_data{KEY}             = $propertyKey;			
 			$row_data{KEY_DESCRIPTION} = $propertyDescription;			
-			$row_data{VALUE}           = $value;
 			$row_data{VALIDATION}      = 0;
 			$row_data{ENTITY_TYPE}     = $entityType;
 			
-			if (defined($pattern))
+			$row_data{VALUE}           = $value;
+						
+			if (defined($pattern)) 
 			{
 				$row_data{VALIDATION} = 1;
 				$row_data{PATTERN}    = $pattern;
@@ -868,12 +899,12 @@ sub listEntitySettings
 			
 			my $value = $entityFileData->{$entityType}->{$propertyKey};
 				
-			my $pp1 = @$propertyParameters[0] if length(@$propertyParameters) > 0;
-			my $pp2 = @$propertyParameters[1] if length(@$propertyParameters) > 1;
-			my $pp3 = @$propertyParameters[2] if length(@$propertyParameters) > 2;
-			my $pp4 = @$propertyParameters[3] if length(@$propertyParameters) > 3;
-			my $pp5 = @$propertyParameters[4] if length(@$propertyParameters) > 4;
-			my $pp6 = @$propertyParameters[5] if length(@$propertyParameters) > 5;
+			my $pp1 = @$propertyParameters[0] if scalar(@$propertyParameters) > 0;
+			my $pp2 = @$propertyParameters[1] if scalar(@$propertyParameters) > 1;
+			my $pp3 = @$propertyParameters[2] if scalar(@$propertyParameters) > 2;
+			my $pp4 = @$propertyParameters[3] if scalar(@$propertyParameters) > 3;
+			my $pp5 = @$propertyParameters[4] if scalar(@$propertyParameters) > 4;
+			my $pp6 = @$propertyParameters[5] if scalar(@$propertyParameters) > 5;
 			
 			$pp1 =~ s/\{\}/$entityName/g if defined($pp1);
 			$pp2 =~ s/\{\}/$entityName/g if defined($pp2);

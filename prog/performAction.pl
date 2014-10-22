@@ -80,12 +80,12 @@ sub saveEntity
 						
 						my @parameters = @{$entityProperty->{parameters}};
 						
-						my $pp1 = $parameters[0] if length(@parameters) > 0;
-						my $pp2 = $parameters[1] if length(@parameters) > 1;
-						my $pp3 = $parameters[2] if length(@parameters) > 2;
-						my $pp4 = $parameters[3] if length(@parameters) > 3;
-						my $pp5 = $parameters[4] if length(@parameters) > 4;
-						my $pp6 = $parameters[5] if length(@parameters) > 5;
+						my $pp1 = $parameters[0] if scalar(@parameters) > 0;
+						my $pp2 = $parameters[1] if scalar(@parameters) > 1;
+						my $pp3 = $parameters[2] if scalar(@parameters) > 2;
+						my $pp4 = $parameters[3] if scalar(@parameters) > 3;
+						my $pp5 = $parameters[4] if scalar(@parameters) > 4;
+						my $pp6 = $parameters[5] if scalar(@parameters) > 5;
 						
 						if (defined($pp1))
 						{
@@ -682,7 +682,7 @@ if ($action eq "saveEntity")
 		$entityType = $tokens[$#tokens - 1];
 		$property   = $tokens[$#tokens];
 		
-		if (length($parentId) == 0)
+		if (!defined($parentId) || (length($parentId) == 0))
 		{
 			$new_id = $id;
 		}
