@@ -392,6 +392,12 @@ if ($action eq "getFileInfo")
 	}
 	
 	$folder = uri_unescape ($folder);
+	
+	if (!-d $folder) {
+		system "mkdir -p $folder";
+	}
+	
+	
 	$currentPath = uri_unescape ($currentPath);
 	
 	my $path = $currentPath;
@@ -799,7 +805,10 @@ if ($action eq "addEntity")
 		
 	JsonHelper::writeJSONFile($entityFilename, $data);	
 
-	my $filename = EntityTools::getProjectRootPath($projectId) . "/conf/Entity2Row.html"; 
+	# my $filename = EntityTools::getProjectRootPath($projectId) . "/conf/Entity2Row.html";
+    my $filename = $pwd . "/conf/Entity2Row.html"; 
+	
+	 
 	my $template = HTML::Template->new(filename => $filename, loop_context_vars => 1, die_on_bad_params => 0);
 
 	my $entityData = EntityTools::getEntityData($projectId, $entityType, $entityName, $p1, $p2, $p4, $p4, $p5, $p6);
