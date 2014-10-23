@@ -491,7 +491,7 @@ sub writeEntityFile
 	my $p5         = $_[7];
 	my $p6         = $_[8];
 	
-	my $txt = $_[10];
+	my $txt = $_[9];
 
 	my $pwd = cwd();
 	

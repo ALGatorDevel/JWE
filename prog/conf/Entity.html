@@ -554,7 +554,11 @@
 								<table class="entityTable2" cellpadding="0" cellspacing="0">
 									<tr>
 										<td>
-											<img id="<TMPL_VAR NAME=ELEMENT_ID>_saveFile" onclick="saveFile('jwe.pl',{sessionId:'<TMPL_VAR NAME=SESSION_ID>',pId:'<TMPL_VAR NAME=PROJECT_ID>',eType:'<TMPL_VAR NAME=ENTITY_TYPE>',eName:'E_NAME',$1:'<TMPL_VAR NAME=ROOT>'}, '<TMPL_VAR NAME=ELEMENT_ID>_filename', codeMirrorEditor['<TMPL_VAR NAME=INDEX>'])" src="images/Floppy-Small-icon.png" />
+											<img id="<TMPL_VAR NAME=ELEMENT_ID>_saveFile" onclick="saveFile('jwe.pl',{sessionId:'<TMPL_VAR NAME=SESSION_ID>',pId:'<TMPL_VAR NAME=PROJECT_ID>',eType:'<TMPL_VAR NAME=ENTITY_TYPE>',eName:'E_NAME',$1:'<TMPL_VAR NAME=ROOT>'}, '<TMPL_VAR NAME=ELEMENT_ID>_filename', 
+                                            
+'<TMPL_VAR NAME=ELEMENT_ID>_rowFileEditor',
+											
+											codeMirrorEditor['<TMPL_VAR NAME=INDEX>'])" src="images/Floppy-Small-icon.png" />
 										</td>
 									</tr>
 									<tr>
@@ -658,7 +662,11 @@
 												</tr>
 												<tr id="<TMPL_VAR NAME=ELEMENT_ID>_rowFileEditor" style="display:none">
 													<td colspan="4">
-														<img id="<TMPL_VAR NAME=ELEMENT_ID>_saveFile" onclick="saveFile('jwe.pl',{sessionId:'<TMPL_VAR NAME=SESSION_ID>',pId:'<TMPL_VAR NAME=PROJECT_ID>',eType:'<TMPL_VAR NAME=ENTITY_TYPE>',eName:'E_NAME',$1:'<TMPL_VAR NAME=ROOT>'}, '<TMPL_VAR NAME=ELEMENT_ID>_filename', codeMirrorEditor['<TMPL_VAR NAME=INDEX>'])" src="images/Floppy-Small-icon.png" /><br>
+														<img id="<TMPL_VAR NAME=ELEMENT_ID>_saveFile" onclick="saveFile('jwe.pl',{sessionId:'<TMPL_VAR NAME=SESSION_ID>',pId:'<TMPL_VAR NAME=PROJECT_ID>',eType:'<TMPL_VAR NAME=ENTITY_TYPE>',eName:'E_NAME',$1:'<TMPL_VAR NAME=ROOT>'}, '<TMPL_VAR NAME=ELEMENT_ID>_filename', 
+
+'<TMPL_VAR NAME=ELEMENT_ID>_rowFileEditor'
+
+														codeMirrorEditor['<TMPL_VAR NAME=INDEX>'])" src="images/Floppy-Small-icon.png" /><br>
 														<div class="entityFileEditorContainer2">
 															<textarea id="<TMPL_VAR NAME=INDEX>_fileEditorTextArea"></textarea>
 														</div>

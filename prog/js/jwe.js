@@ -814,11 +814,14 @@ function entityEditFile(projectId, entityType, p1, textFieldId, textEditorId, te
 // Function which saves entity file
 //-----------------------------------------------------------------------------
 
-function entitySaveFile(projectId, entityType, p1, textFieldId, editorCtrl)
+function entitySaveFile(projectId, entityType, p1, textFieldId, textEditorId, editorCtrl)
 {
 	var entityName = $('#' + textFieldId).val();
 	
 	writeEntityFile(projectId, entityType, entityName, p1, editorCtrl);
+	
+	// td: po shranjevanju skrijem editor
+	$('#' + textEditorId).fadeToggle(400);
 }
 
 
@@ -1024,7 +1027,7 @@ function entityAddEntity(pId, eTyp, project, addRowId, entityArrayValueId, paren
 				         lineNumbers: true,
 				         lineWrapping: true,
 				         height: "400px",
-				         mode: "text/x-java"
+				         mode: "text/html"
 		  			});
 
 					

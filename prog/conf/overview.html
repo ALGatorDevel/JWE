@@ -7,6 +7,7 @@
 		<script src="js/jquery-2.1.1.js" type="text/javascript"></script>
 		<script src="js/jwe.js" type="text/javascript"></script>
 
+
 		<div id="main-wrapper">
 <TMPL_INCLUDE NAME="Title.html">
 
@@ -39,6 +40,10 @@
 						</td>
 						<td style="width:26px">
 							<img onclick="entityDeleteProject('<TMPL_VAR NAME=PROJECT_ID>', '<TMPL_VAR NAME=ENTITY_NAME>')" src="images/delete-icon_24.png" /> 
+						</td>
+						<!--class="entity2TableColumn3"-->
+						<td style="width:26px">
+							<A HREF='jwe.pl?aaa=<TMPL_VAR NAME=LINK>'><img src="images/Entity_link_24.png" /></A>
 						</td>
 						<td>
 							<span class="pageDescription"><TMPL_VAR NAME=ENTITY_NAME></span>
