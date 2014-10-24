@@ -762,7 +762,9 @@ sub listEntitySettings
 			{
 				$row_data{USE_ROOT} = 1;
 
-				$row_data{ROOT}     = $root;
+				$row_data{ROOT}     =  $root;
+				
+				$row_data{FM_ROOT}  = $projectRootPath . "/projects/". $root;
 			}
 
 			push(@loop_data, \%row_data);
