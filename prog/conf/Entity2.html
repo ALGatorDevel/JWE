@@ -119,13 +119,13 @@
 						</td>
 						<td>
 							<div style="display:none">
-								<form id="uploadFiles" action="performAction.pl" method='post' enctype="multipart/form-data">
+								<form id="uploadFiles" action="jwe.pl" method='post' enctype="multipart/form-data">
 									<button id="uploadFileButton" type="submit">
 										<img src="images/Files-Upload-File-icon_32.png" />
 									</button>
 									<input type="file" id="files" name="files" multiple />
-									<input type="hidden" id="uploadFolder" name="uploadFolder" value="<TMPL_VAR NAME=UPLOAD_FOLDER>" />
-									<input type="hidden" name="performAction" value="uploadFile" />
+									<input type="hidden" id="uploadFolder" name="$1" value="<TMPL_VAR NAME=UPLOAD_FOLDER>" />
+									<input type="hidden" name="performAction" value="UploadFileFileManager" />
 								</form>
 							</div>
 						</td>
@@ -145,9 +145,9 @@
 			
 			<span id="errorMessage"></span>
 			
- 			<form id="saveEntity2" action="performAction.pl" method="get">
+ 			<form id="saveEntity2" action="jwe.pl" method="get">
  				
- 				<input type="hidden" name="performAction" value="saveEntity" />
+ 				<input type="hidden" name="performAction" value="SaveEntity" />
 	 			<input type="hidden" name="pId"           value="<TMPL_VAR NAME=PROJECT_ID>" />
 	 			<input type="hidden" name="eType"         value="<TMPL_VAR NAME=ENTITY_TYPE>" />
 	 			<input type="hidden" name="eName"         value="<TMPL_VAR NAME=ENTITY_NAME>" />
@@ -170,7 +170,7 @@
 				<TMPL_LOOP NAME="SETTINGS"><TMPL_IF NAME="TYPE_FILE"><tr>
 					<td>	
 						<div>
-							<form id="<TMPL_VAR NAME=INDEX>_uploadFilesForm" action="performAction.pl" method='post' enctype="multipart/form-data">
+							<form id="<TMPL_VAR NAME=INDEX>_uploadFilesForm" action="jwe.pl" method='post' enctype="multipart/form-data">
 								<button id="<TMPL_VAR NAME=INDEX>_uploadFileButton" type="submit"><img src="images/Files-Upload-File-icon_24.png" /></button>
 								<input type="file" id="<TMPL_VAR NAME=INDEX>_files" name="<TMPL_VAR NAME=INDEX>_files" length=30 style="border:0px solid gray" />
 
@@ -179,7 +179,7 @@
 					 			<input type="hidden" name="pId" value="<TMPL_VAR NAME=PROJECT_ID>" />
 					 			<input type="hidden" name="eType" value="<TMPL_VAR NAME=ENTITY_TYPE>" />
 					 			<input type="hidden" name="$1" value="<TMPL_VAR NAME=ROOT>" />
-								<input type="hidden" name="performAction" value="uploadFile2" />
+								<input type="hidden" name="performAction" value="EntityUploadFile" />
 								
 								<TMPL_IF NAME=KEY></TMPL_IF>
 								
@@ -195,7 +195,7 @@
 				</tr></TMPL_IF><TMPL_IF NAME="TYPE_ENTITIES"><TMPL_LOOP NAME="VALUES"><TMPL_LOOP NAME="ENTITIES"><TMPL_IF NAME="TYPE_FILE"><tr>
 					<td>	
 						<div>
-							<form id="<TMPL_VAR NAME=INDEX>_uploadFilesForm" action="performAction.pl" method='post' enctype="multipart/form-data">
+							<form id="<TMPL_VAR NAME=INDEX>_uploadFilesForm" action="jwe.pl" method='post' enctype="multipart/form-data">
 								<button id="<TMPL_VAR NAME=INDEX>_uploadFileButton" type="submit"><img src="images/Files-Upload-File-icon_24.png" /></button>
 								<input type="file" id="<TMPL_VAR NAME=INDEX>_files" name="<TMPL_VAR NAME=INDEX>_files" length=30 style="border:0px solid gray" />
 
@@ -204,7 +204,7 @@
 					 			<input type="hidden" name="pId" value="<TMPL_VAR NAME=PROJECT_ID>" />
 					 			<input type="hidden" name="eType" value="<TMPL_VAR NAME=ENTITY_TYPE>" />
 					 			<input type="hidden" name="$1" value="<TMPL_VAR NAME=ROOT>" />
-								<input type="hidden" name="performAction" value="uploadFile2" />
+								<input type="hidden" name="performAction" value="EntityUploadFile" />
 							</form>
 							<script>
 							jQuery(document).ready(function()
@@ -217,7 +217,7 @@
 				</tr></TMPL_IF><TMPL_IF NAME="TYPE_ENTITIES"><TMPL_LOOP NAME="VALUES"><TMPL_LOOP NAME="ENTITIES"><TMPL_IF NAME="TYPE_FILE"><tr>
 					<td>	
 						<div>
-							<form id="<TMPL_VAR NAME=INDEX>_uploadFilesForm" action="performAction.pl" method='post' enctype="multipart/form-data">
+							<form id="<TMPL_VAR NAME=INDEX>_uploadFilesForm" action="jwe.pl" method='post' enctype="multipart/form-data">
 								<button id="<TMPL_VAR NAME=INDEX>_uploadFileButton" type="submit"><img src="images/Files-Upload-File-icon_24.png" /></button>
 								<input type="file" id="<TMPL_VAR NAME=INDEX>_files" name="<TMPL_VAR NAME=INDEX>_files" length=30 style="border:0px solid gray" />
 
@@ -226,7 +226,7 @@
 					 			<input type="hidden" name="pId" value="<TMPL_VAR NAME=PROJECT_ID>" />
 					 			<input type="hidden" name="eType" value="<TMPL_VAR NAME=ENTITY_TYPE>" />
 					 			<input type="hidden" name="$1" value="<TMPL_VAR NAME=ROOT>" />
-								<input type="hidden" name="performAction" value="uploadFile2" />
+								<input type="hidden" name="performAction" value="EntityUploadFile" />
 							</form>
 							<script>
 							jQuery(document).ready(function()
@@ -239,7 +239,7 @@
 				</tr></TMPL_IF><TMPL_IF NAME="TYPE_ENTITIES"><TMPL_LOOP NAME="VALUES"><TMPL_LOOP NAME="ENTITIES"><TMPL_IF NAME="TYPE_FILE"><tr>
 					<td>	
 						<div>
-							<form id="<TMPL_VAR NAME=INDEX>_uploadFilesForm" action="performAction.pl" method='post' enctype="multipart/form-data">
+							<form id="<TMPL_VAR NAME=INDEX>_uploadFilesForm" action="jwe.pl" method='post' enctype="multipart/form-data">
 								<button id="<TMPL_VAR NAME=INDEX>_uploadFileButton" type="submit"><img src="images/Files-Upload-File-icon_24.png" /></button>
 								<input type="file" id="<TMPL_VAR NAME=INDEX>_files" name="<TMPL_VAR NAME=INDEX>_files" length=30 style="border:0px solid gray" />
 
@@ -248,7 +248,7 @@
 					 			<input type="hidden" name="pId" value="<TMPL_VAR NAME=PROJECT_ID>" />
 					 			<input type="hidden" name="eType" value="<TMPL_VAR NAME=ENTITY_TYPE>" />
 					 			<input type="hidden" name="$1" value="<TMPL_VAR NAME=ROOT>" />
-								<input type="hidden" name="performAction" value="uploadFile2" />
+								<input type="hidden" name="performAction" value="EntityUploadFile" />
 							</form>
 							<script>
 							jQuery(document).ready(function()

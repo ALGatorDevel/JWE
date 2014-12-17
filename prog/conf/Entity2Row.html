@@ -3,10 +3,10 @@
 		<input id="<TMPL_VAR NAME=ELEMENT_ID>_entityTextField" class="entityValue" name="<TMPL_VAR NAME=ELEMENT_ID>" type="text" readonly="readonly" value="<TMPL_VAR NAME=VALUE>" />
 	</td>
 	<td class="entity2TableColumn2">
-		<img id="<TMPL_VAR NAME=ELEMENT_ID>_editImage" onclick="toggleDisplay('<TMPL_VAR NAME=ELEMENT_ID>_rowEntityEditor')" src="images/Files-Edit-File-icon_24.png" />
+		<img id="<TMPL_VAR NAME=ELEMENT_ID>_editImage" onclick="toggleDisplay('<TMPL_VAR NAME=ELEMENT_ID>_rowEntityEditor')" src="images/entity-open-24.png" />
 	</td>
 	<td class="entity2TableColumn3">
-		<img onclick="entityDeleteEntity('<TMPL_VAR NAME=ELEMENT_ID>_rowEntity', '<TMPL_VAR NAME=ELEMENT_ID>_rowEntityEditor', '<TMPL_VAR NAME=ELEMENT_ID>_entityTextField', '<TMPL_VAR NAME=PARENT_INDEX>_value', '<TMPL_VAR NAME=PARENT_INDEX>', 'saveEntityButton')" src="images/delete-icon_24.png" />
+		<img onclick="entityDeleteEntity('<TMPL_VAR NAME=ELEMENT_ID>_rowEntity', '<TMPL_VAR NAME=ELEMENT_ID>_rowEntityEditor', '<TMPL_VAR NAME=ELEMENT_ID>_entityTextField', '<TMPL_VAR NAME=PARENT_INDEX>_value', '<TMPL_VAR NAME=PARENT_INDEX>', 'saveEntityButton','<TMPL_VAR NAME=PROJECT_ID>','<TMPL_VAR NAME=CURRENT_ENTITY_TYPE>','<TMPL_VAR NAME=P1>','<TMPL_VAR NAME=P2>','<TMPL_VAR NAME=P3>','<TMPL_VAR NAME=P4>','<TMPL_VAR NAME=P5>','<TMPL_VAR NAME=P6>')" src="images/delete-icon_24.png" />
 	</td>
 </tr><tr id="<TMPL_VAR NAME=ELEMENT_ID>_rowEntityEditor" style="">
 	<td colspan="4">
@@ -15,7 +15,7 @@
 </tr><TMPL_LOOP NAME="ENTITIES"><TMPL_IF NAME="TYPE_FILE"><tr>
 	<td>	
 		<div>
-			<form id="<TMPL_VAR NAME=INDEX>_uploadFilesForm" action="performAction.pl" method='post' enctype="multipart/form-data">
+			<form id="<TMPL_VAR NAME=INDEX>_uploadFilesForm" action="jwe.pl" method='post' enctype="multipart/form-data">
 				<button id="<TMPL_VAR NAME=INDEX>_uploadFileButton" type="submit"><img src="images/Files-Upload-File-icon_24.png" /></button>
 				<input type="file" id="<TMPL_VAR NAME=INDEX>_files" name="<TMPL_VAR NAME=INDEX>_files" length=30 style="border:0px solid gray" />
 
@@ -23,7 +23,7 @@
 	 			<input type="hidden" name="pId" value="<TMPL_VAR NAME=PROJECT_ID>" />
 	 			<input type="hidden" name="eType" value="<TMPL_VAR NAME=ENTITY_TYPE>" />
 	 			<input type="hidden" name="$1" value="<TMPL_VAR NAME=ROOT>" />
-				<input type="hidden" name="performAction" value="uploadFile2" />
+				<input type="hidden" name="performAction" value="EntityUploadFile" />
 			</form>
 		</div>
 	</td>

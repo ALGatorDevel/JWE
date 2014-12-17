@@ -1,4 +1,10 @@
-#!/usr/bin/perl -w
+#!c:/Perl/bin/perl.exe -w
+
+# unix
+# !/usr/bin/perl -w
+
+# windows
+# !c:/Perl/bin/perl.exe -w
 
 use lib ".";
 
@@ -544,6 +550,8 @@ if ($action eq "uploadFile")
 			my $io_handle = $fh->handle;
 	
 			open( OUTFILE, '>', $uploadFolder . $fh );
+			
+			binmode OUTFILE;
 	
 			while ( my $bytesread = $io_handle->read( my $buffer, 1024 ) )
 			{
@@ -828,6 +836,20 @@ if ($action eq "addEntity")
 
 	print $query->header();
 	print $txt;
+}
+
+#################################################
+# User wants to delete entity
+#################################################
+if ($action eq "deleteEntity")
+{
+	my $projectId  = $query->param("pId");
+	my $entityType = $query->param("eType");
+	my $entityName = $query->param("eName");
+	
+	EntityTools::deleteEntity($projectId, $entityType, $entityName);
+
+	print $query->header();
 }
 
 #################################################

@@ -1113,4 +1113,22 @@ sub deleteProject
 	JsonHelper::writeJSONFile($filename, $data);	
 }
 
+#################################################
+#
+# Function: deleteEntity
+#
+# Description:
+# 	Function deletes entity from project
+#
+# Parameters:
+#	project id and entity to be deleted.
+#
+#################################################
+
+sub deleteEntity
+{
+	my $projectId  = $_[0];
+	my $entityType = $_[1];
+	my $entityName = $_[2];
+}
 1;

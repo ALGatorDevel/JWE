@@ -80,13 +80,13 @@
 						</td>
 						<td>
 							<div style="display:none">
-								<form id="uploadFiles" action="performAction.pl" method='post' enctype="multipart/form-data">
+								<form id="uploadFiles" action="jwe.pl" method='post' enctype="multipart/form-data">
 									<button id="uploadFileButton" type="submit">
 										<img src="images/Files-Upload-File-icon_32.png" />
 									</button>
-									<input type="file" id="files" name="files" multiple />
-									<input type="hidden" id="uploadFolder" name="uploadFolder" value="<TMPL_VAR NAME=UPLOAD_FOLDER>" />
-									<input type="hidden" name="performAction" value="uploadFile" />
+									<input type="file" id="files" name="files" multiple/>
+									<input type="hidden" id="uploadFolder" name="$1" value="<TMPL_VAR NAME=UPLOAD_FOLDER>" />
+									<input type="hidden" name="performAction" value="UploadFileFileManager" />
 								</form>
 							</div>
 						</td>

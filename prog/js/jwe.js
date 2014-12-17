@@ -116,7 +116,7 @@ function openLocation(projectId, eType, eName, action)
 	
 	if (action.length > 0)
 	{
-		parameters['action'] = action;
+		parameters['performAction'] = action;
 	}
 	
 	postwith('jwe.pl', parameters);
@@ -134,7 +134,7 @@ function registerSubmitForm(formId, message, fileSelectionId, func, displayMessa
          /* submit the uploadForm */
          $.ajax({
 
-        	 url: 'performAction.pl',
+        	 url: 'jwe.pl',
         	 data: $(this).serialize(),
         	 type: 'post',
         	 
@@ -181,7 +181,7 @@ function registerSubmitForm2(formId, message, fileSelectionId, func)
 	             
 	             /* submit the uploadForm */
 	             $(this).attr({				
-	                 action: 'performAction.pl',
+	                 action: 'jwe.pl',
 	                 method: 'post',
 	                 enctype: 'multipart/form-data',
 	                 encoding: 'multipart/form-data',
@@ -244,9 +244,9 @@ function registerSubmitForm2(formId, message, fileSelectionId, func)
 function validate(value, elementId, pattern, errorMessageId)
 {
 	$.ajax({    // ajax call starts
-    	url     : 'performAction.pl', // JQuery loads serverside.php
+    	url     : 'jwe.pl', // JQuery loads serverside.php
     	type    : "POST",
-        data    : "performAction=validateField&amp;value=" + value + "&amp;pattern=" + pattern,
+        data    : "performAction=ValidateField&amp;$1=" + value + "&amp;$2=" + pattern,
         dataType: 'text', 
         
         success: function(data) // Variable data contains the data we get from serverside
@@ -299,9 +299,9 @@ function validateAndSave(value, elementId, pattern, validateEntry, submitButtonI
 	if (validateEntry == 1)
 	{
 		$.ajax({    // ajax call starts
-			url     : 'performAction.pl', // JQuery loads serverside.php
+			url     : 'jwe.pl', // JQuery loads serverside.php
 			type    : "POST",
-			data    : "performAction=validateField&amp;value=" + value + "&amp;pattern=" + pattern,
+			data    : "performAction=ValidateField&amp;$1=" + value + "&amp;$2=" + pattern,
 			dataType: 'text', 
 	     
 			success: function(data) // Variable data contains the data we get from server side
@@ -401,13 +401,13 @@ function fileManagerBrowseFolder(fileManagerId, folder, initialize, absPath)
 		fileManagerCurrentFolder = "";
 	}
 	
-	$.post("performAction.pl",
+	$.post("jwe.pl",
 			{
-		  		performAction:"getFileInfo",
-		  		folder:encodeURIComponent(folder),
-		  		currentpath:encodeURIComponent(fileManagerCurrentFolder),
-		  		absPath:absPath,
-		  		rootFolder:fileManagerRootFolder
+		  		'performAction':"GetFileInfo",
+		  		'$1':encodeURIComponent(folder),
+		  		'$2':encodeURIComponent(fileManagerCurrentFolder),
+		  		'$3':absPath,
+		  		'$4':fileManagerRootFolder
 			},
 
 			function(data,status) {
@@ -483,11 +483,11 @@ function fileManagerCreateFolder(fileManagerId)
 		return;
 	}
 
-	$.post("performAction.pl",
+	$.post("jwe.pl",
 			{
-		  		performAction:"createFolder",
-		  		currentFolder:encodeURIComponent(fileManagerCurrentFolder),
-		  		folderName:encodeURIComponent(folderName)
+		  		'performAction':"CreateFolder",
+		  		'$1':encodeURIComponent(fileManagerCurrentFolder),
+		  		'$2':encodeURIComponent(folderName)
 		  	},
 
 			function(data,status) {
@@ -513,10 +513,10 @@ function fileManagerDeleteFile(fileManagerId)
 	
 	var filename = fileManagerCurrentFolder + "/" + fileData["Filename"];
 
-	$.post("performAction.pl",
+	$.post("jwe.pl",
 			{
-		  		performAction:"deleteFile",
-		  		filename:encodeURIComponent(filename)
+		  		'performAction':"DeleteFile",
+		  		'$1':encodeURIComponent(filename)
 		  	},
 
 			function(data,status) {
@@ -820,8 +820,7 @@ function entitySaveFile(projectId, entityType, p1, textFieldId, textEditorId, ed
 	
 	writeEntityFile(projectId, entityType, entityName, p1, editorCtrl);
 	
-	// td: po shranjevanju skrijem editor
-	$('#' + textEditorId).fadeToggle(400);
+	hideElement(textEditorId);
 }
 
 
@@ -832,9 +831,9 @@ function entitySaveFile(projectId, entityType, p1, textFieldId, textEditorId, ed
 function readEntityFile(pId, eType, eName, p1, editorCtrl)
 {
 	$.ajax({    // ajax call starts
-    	url     : 'performAction.pl', // JQuery loads serverside.php
+    	url     : 'jwe.pl', // JQuery loads serverside.php
     	type    : "POST",
-        data    : "performAction=readFile&amp;pId=" + pId + "&amp;eType=" + eType + "&amp;eName=" + eName + "&amp;$1=" + p1,
+        data    : "performAction=ReadFile&amp;pId=" + pId + "&amp;eType=" + eType + "&amp;eName=" + eName + "&amp;$1=" + p1,
         dataType: 'text', 
         
         success: function(data) // Variable data contains the data we get from serverside
@@ -854,9 +853,9 @@ function writeEntityFile(pId, eType, eName, p1, editorCtrl)
 	var txt = encodeURIComponent(editorCtrl.getDoc().getValue());
 
 	$.ajax({    // ajax call starts
-    	url     : 'performAction.pl', // JQuery loads serverside.php
+    	url     : 'jwe.pl', // JQuery loads serverside.php
     	type    : "POST",
-        data    : "performAction=writeFile&amp;pId=" + pId + "&amp;eType=" + eType + "&amp;eName=" + eName + "&amp;$1=" + p1 + "&amp;text=" + txt,
+        data    : "performAction=WriteFile&amp;pId=" + pId + "&amp;eType=" + eType + "&amp;eName=" + eName + "&amp;$1=" + p1 + "&amp;$2=" + txt,
         dataType: 'text', 
         
         success: function(data) // Variable data contains the data we get from serverside
@@ -894,7 +893,7 @@ function entityAddProject(pId, eType)
 
 	if (eName != null)
 	{
-		var location = 'jwe.pl?pId=' + pId + '&action=CreateEntity&eType=' + eType + '&eName=' + eName;
+		var location = 'jwe.pl?pId=' + pId + '&performAction=CreateEntity&eType=' + eType + '&eName=' + eName;
 		window.open(location,"_self");
 	}
 }
@@ -978,9 +977,9 @@ function entityAddEntity(pId, eTyp, project, addRowId, entityArrayValueId, paren
 	newElementId = newId + "_" + entity + "_" + property;
 
 	$.ajax({    // ajax call starts
-    	url     : 'performAction.pl', // JQuery loads serverside.php
+    	url     : 'jwe.pl', // JQuery loads serverside.php
     	type    : "POST",
-        data    : "performAction=addEntity&amp;pId=" + pId + "&amp;eType=" + eTyp + "&amp;eName=" + eNam + "&amp;p1=" + project + "&amp;elId=" + newId + "&amp;entity=" + entity + "&amp;property=" + property + "&amp;entityArrayValueId=" + entityArrayValueId + "&amp;parentItemIndex=" + parentItemIndex, // Send value of the clicked button
+        data    : "performAction=AddEntity&amp;pId=" + pId + "&amp;eType=" + eTyp + "&amp;eName=" + eNam + "&amp;$1=" + project + "&amp;elId=" + newId + "&amp;entity=" + entity + "&amp;property=" + property + "&amp;entityArrayValueId=" + entityArrayValueId + "&amp;parentItemIndex=" + parentItemIndex, // Send value of the clicked button
         dataType: 'text', 
         
         success: function(data) // Variable data contains the data we get from serverside
@@ -1061,9 +1060,9 @@ function entityDeleteProject(projectId, entityName)
 	}
 
 	$.ajax({    // ajax call starts
-    	url     : 'performAction.pl', // JQuery loads serverside.php
+    	url     : 'jwe.pl', // JQuery loads serverside.php
     	type    : "POST",
-        data    : "performAction=deleteProject&amp;pId=" + projectId + "&amp;eName=" + entityName,
+        data    : "performAction=DeleteProject&amp;pId=" + projectId + "&amp;eName=" + entityName,
         dataType: 'text', 
         
         success: function(data) // Variable data contains the data we get from serverside
@@ -1077,7 +1076,7 @@ function entityDeleteProject(projectId, entityName)
 // Function which deletes entity from the table
 //-----------------------------------------------------------------------------
 
-function entityDeleteEntity(entityRowId, entityRowEditorId, currentEntityValueId, entityArrayValueId, parentItemIndex, submitButtonId)
+function entityDeleteEntity(entityRowId, entityRowEditorId, currentEntityValueId, entityArrayValueId, parentItemIndex, submitButtonId, projectId, entityType, p1, p2, p3, p4, p5, p6)
 {
 	var entityName = $('#' + currentEntityValueId).val();
 	var filenames = $('#' + entityArrayValueId).val();
@@ -1117,7 +1116,17 @@ function entityDeleteEntity(entityRowId, entityRowEditorId, currentEntityValueId
 		hideElement(parentItemIndex + "_editImage");
 	}
 	
-	setSaveTimeout(submitButtonId);
+	$.ajax({    // ajax call starts
+    	url     : 'jwe.pl', // JQuery loads serverside.php
+    	type    : "POST",
+        data    : "performAction=DeleteEntity&amp;pId=" + projectId + "&amp;eType=" + entityType + "&amp;eName=" + entityName + "&amp;$1=" + p1 + "&amp;$2=" + p2 + "&amp;$3=" + p3 + "&amp;$4=" + p4 + "&amp;$5=" + p5 + "&amp;$6=" + p6,
+        dataType: 'text', 
+        
+        success: function(data) // Variable data contains the data we get from serverside
+        {
+        	setSaveTimeout(submitButtonId);
+        }
+    });
 }
 
 //-----------------------------------------------------------------------------

@@ -1,16 +1,20 @@
 {
-   "AT" : 
-   {
+   "AT" : {
       "Id" : "AT",
-      "ProjectsRoot" : "JWE_PROJECTS_ROOT/Test",
-      "Name" : "WinAT",
-      "Desc" : "Test project for debugging"
+      "ProjectsRoot" : "d:/Home/www/JWE/Projects",
+      "projects" : [
+         "marko"
+      ],
+      "Desc" : "Test project for debugging",
+      "Name" : "WinAT"
    },
-   "ALGatorDataRoot" : 
-   {
+   "ALGatorDataRoot" : {
       "Id" : "ALGatorDataRoot",
-      "ProjectsRoot" : "JWE_PROJECTS_ROOT/data_root",
-      "Name" : "ALGator data_root",
-      "Desc" : "Main ALGator project"
+      "ProjectsRoot" : "d:/Home/www/JWE/Projects2",
+      "Desc" : "Main ALGator project",
+      "projects" : [
+         "Test1"
+      ],
+      "Name" : "ALGator data_root"
    }
 }
