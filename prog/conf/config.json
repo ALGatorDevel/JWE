@@ -1,20 +1,11 @@
 {
-   "AT" : {
-      "Id" : "AT",
-      "ProjectsRoot" : "d:/Home/www/JWE/Projects",
-      "projects" : [
-         "marko"
-      ],
-      "Desc" : "Test project for debugging",
-      "Name" : "WinAT"
-   },
-   "ALGatorDataRoot" : {
+   "ALGator" : {
       "Id" : "ALGatorDataRoot",
-      "ProjectsRoot" : "d:/Home/www/JWE/Projects2",
-      "Desc" : "Main ALGator project",
+      "ProjectsRoot" : "JWE_PROJECTS_ROOT/data_root",
+      "Desc" : "ALGators data_root",
       "projects" : [
          "Test1"
       ],
-      "Name" : "ALGator data_root"
+      "Name" : "The ALGator project"
    }
 }
