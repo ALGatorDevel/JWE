@@ -1,7 +1,4 @@
-#!c:/Perl/bin/perl.exe -w
-
-# unix
-# !/usr/bin/perl -w
+#!/usr/bin/perl -w
 
 # windows
 # !c:/Perl/bin/perl.exe -w

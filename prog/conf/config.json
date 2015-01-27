@@ -1,6 +1,6 @@
 {
    "ALGator" : {
-      "Id" : "ALGatorDataRoot",
+      "Id" : "ALGator",
       "ProjectsRoot" : "JWE_PROJECTS_ROOT/data_root",
       "Desc" : "ALGators data_root",
       "projects" : [
