@@ -43,6 +43,7 @@ my $pwd = cwd();
 my $query = new CGI;
 
 my $action = $query->param("performAction");
+my $aaa              = $query->param("aaa");
 
 my $decoded;
 
@@ -58,67 +59,17 @@ my $p6    = $query->param("\$6");
 
 Tools::Log("------------------------------------------------------------");
 
-my $aaa              = $query->param("aaa");
+
 my $editSingleEntity = 0;
 
 if ( defined($aaa) ) {
 
 	Tools::Log("Parameter aaa: $aaa");
 	
-	$editSingleEntity = 1;
+	$editSingleEntity = 1; 
+	
+	($pId, $eType, $eName, $p1, $p2, $p3, $p4, $p5, $p6) = Tools::getParametersFromJWELink($aaa);
 
-	my $tempString = $aaa;
-
-	$tempString =~ s/WERTYYTREW/\+/g;
-	$tempString =~ s/ERTYUUYTRE/\//g;
-	$tempString =~ s/QWERTTREWQ/\=/g;
-
-	$decoded = decode_base64($tempString);
-
-	my @tokens = split( /\&/, $decoded );
-
-	foreach my $token (@tokens) {
-		my @tokens2 = split( /=/, $token );
-
-		my $param = $tokens2[0];
-		my $value = $tokens2[1];
-
-		if ( lc $param eq "pid" ) {
-			$pId = $value;
-		}
-
-		if ( lc $param eq "etype" ) {
-			$eType = $value;
-		}
-
-		if ( lc $param eq "ename" ) {
-			$eName = $value;
-		}
-
-		if ( lc $param eq "\$1" ) {
-			$p1 = $value;
-		}
-
-		if ( lc $param eq "\$2" ) {
-			$p2 = $value;
-		}
-
-		if ( lc $param eq "\$3" ) {
-			$p3 = $value;
-		}
-
-		if ( lc $param eq "\$4" ) {
-			$p4 = $value;
-		}
-
-		if ( lc $param eq "\$5" ) {
-			$p5 = $value;
-		}
-
-		if ( lc $param eq "\$6" ) {
-			$p6 = $value;
-		}
-	}
 }
 
 Tools::Log("action: $action") if defined($action);
@@ -167,7 +118,9 @@ if ( defined($action) ) {
 # if project id is not defined it means list of main projects should be displayed
 if ( !defined($pId) ) {
 
-    Pages::ShowProjectsPage();
+    #Pages::ShowProjectsPage();
+
+	Pages::showEmptyPage();
 
 	exit;
 }

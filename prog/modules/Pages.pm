@@ -12,6 +12,7 @@ use File::Path qw(make_path rmtree);
 use File::Basename;
 use File::Spec;
 
+
 use strict;
 use warnings;
 
@@ -126,27 +127,9 @@ sub ListProjects {
 		
 		my $propertyEType = "Project";
 		my $currentEntityName = $element;
-		my $tempLink = "pId=$projectId&eType=$propertyEType&eName=$currentEntityName";		
-		
-		my $pp1="";
-		my $pp2="";
-		my $pp3="";
-		my $pp4="";
-		my $pp5="";
-		my $pp6="";		
-		
-		$tempLink = $tempLink . "&\$1=$pp1" if defined($pp1);
-		$tempLink = $tempLink . "&\$2=$pp2" if defined($pp2);
-		$tempLink = $tempLink . "&\$3=$pp3" if defined($pp3);
-		$tempLink = $tempLink . "&\$4=$pp4" if defined($pp4);
-		$tempLink = $tempLink . "&\$5=$pp5" if defined($pp5);
-		$tempLink = $tempLink . "&\$6=$pp6" if defined($pp6);
 				
-		$tempLink = encode_base64($tempLink);
+		my $tempLink = Tools::getJWELink($projectId, $propertyEType, $currentEntityName);
 				
-		$tempLink =~ s/\+/WERTYYTREW/g;
-		$tempLink =~ s/\//ERTYUUYTRE/g;
-		$tempLink =~ s/\=/QWERTTREWQ/g;
 				
 		$row_data{LINK} = $tempLink;
 
@@ -625,21 +608,8 @@ sub ListEntitySettings
 				$row_data{KEY}             = $propertyKey;			
 				$row_data{KEY_DESCRIPTION} = $tempKeyDescription;			
 				$row_data{VALUE}           = $currentEntityName;
-				
-				my $tempLink               = "pId=$projectId&eType=$propertyEType&eName=$currentEntityName";
-				
-				$tempLink = $tempLink . "&\$1=$pp1" if defined($pp1);
-				$tempLink = $tempLink . "&\$2=$pp2" if defined($pp2);
-				$tempLink = $tempLink . "&\$3=$pp3" if defined($pp3);
-				$tempLink = $tempLink . "&\$4=$pp4" if defined($pp4);
-				$tempLink = $tempLink . "&\$5=$pp5" if defined($pp5);
-				$tempLink = $tempLink . "&\$6=$pp6" if defined($pp6);
-				
-				$tempLink = encode_base64($tempLink);
-				
-				$tempLink =~ s/\+/WERTYYTREW/g;
-				$tempLink =~ s/\//ERTYUUYTRE/g;
-				$tempLink =~ s/\=/QWERTTREWQ/g;
+
+				my $tempLink = Tools::getJWELink($projectId, $propertyEType, $currentEntityName, $pp1, $pp2, $pp3, $pp4, $pp5, $pp6);
 				
 				$row_data{LINK}            = $tempLink;
 							
@@ -1068,7 +1038,6 @@ sub EditEntity {
 	print "Content-type:text/html\n\n";
 	print $template->output();
 
-	#td: print "DECODED:" . $decoded;
 
 	Tools::LogExitFunction("EditEntity");
 }
@@ -1162,6 +1131,11 @@ sub StartFileManager {
 	print $template->output();
 
 	Tools::LogExitFunction("StartFileManager");
+}
+
+sub showEmptyPage {
+	print "Content-type:text/html\n\n";
+	print "Non-existing page."
 }
 
 1;
