@@ -1,5 +1,6 @@
 #!/usr/bin/perl
 
+use lib "/home/ALGOSystem/JWE/prog";
 use modules::Tools;
 
 my $urlPrefix = "http://kepa.fri.uni-lj.si/jwe/jwe.pl?aaa=";
