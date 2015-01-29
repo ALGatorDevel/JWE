@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-use Modules::Tools;
+use modules::Tools;
 
 my $urlPrefix = "http://kepa.fri.uni-lj.si/jwe/jwe.pl?aaa=";
 
