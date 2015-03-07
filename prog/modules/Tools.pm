@@ -234,6 +234,11 @@ sub getJWELink {
   $pp4 = $_[6];
   $pp5 = $_[7];
   $pp6 = $_[8];
+  
+  my $index = $_[9];
+  my $level = $_[10];
+  my $ajax  = $_[11];
+  
 
   my $tempLink = "pId=$projectId&eType=$propertyEType&eName=$currentEntityName";
 
@@ -243,8 +248,13 @@ sub getJWELink {
   $tempLink = $tempLink . "&\$4=$pp4" if defined($pp4);
   $tempLink = $tempLink . "&\$5=$pp5" if defined($pp5);
   $tempLink = $tempLink . "&\$6=$pp6" if defined($pp6);
+  
+  $tempLink = $tempLink . "&index=$index" if defined($index);
+  $tempLink = $tempLink . "&level=$level" if defined($level);
+  $tempLink = $tempLink . "&ajax=$ajax" if defined($ajax);
 
   $tempLink = encode_base64($tempLink);
+  $tempLink =~ s/\n/NEWLINE/g;
 
   $tempLink =~ s/\+/WERTYYTREW/g;
   $tempLink =~ s/\//ERTYUUYTRE/g;
@@ -255,8 +265,9 @@ sub getJWELink {
 
 sub getParametersFromJWELink {
 	my $tempString = $_[0];
-	my ($pId, $eType, $eName, $p1, $p2, $p3, $p4, $p5, $p6);
-	
+	my ($pId, $eType, $eName, $p1, $p2, $p3, $p4, $p5, $p6, $index, $level, $ajax);
+
+    $tempString =~ s/NEWLINE/\n/g;
     $tempString =~ s/WERTYYTREW/\+/g;
 	$tempString =~ s/ERTYUUYTRE/\//g;
 	$tempString =~ s/QWERTTREWQ/\=/g;
@@ -306,8 +317,20 @@ sub getParametersFromJWELink {
 		if ( lc $param eq "\$6" ) {
 			$p6 = $value;
 		}
+
+		if ( lc $param eq "index" ) {
+			$index = $value;
+		}
+
+		if ( lc $param eq "level" ) {
+			$level = $value;
+		}
+
+		if ( lc $param eq "ajax" ) {
+			$ajax = $value;
+		}
 	}
-	return ($pId, $eType, $eName, $p1, $p2, $p3, $p4, $p5, $p6); 	
+	return ($pId, $eType, $eName, $p1, $p2, $p3, $p4, $p5, $p6, $index, $level, $ajax); 	
 }
 
 

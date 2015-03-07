@@ -147,6 +147,9 @@ sub EntitySaveEntity {
 	{
 		my $value = $query1->param($name);
 
+		Tools::Log("");	
+		Tools::Log("Param: $name\t\tValue: $value") if (defined($value));
+
 		my $parentId;
 		my $new_id;
 		my $id;
@@ -159,6 +162,8 @@ sub EntitySaveEntity {
 		{
 			next;
 		}
+
+		Tools::Log("\t\tNum tokens: $#tokens");
 		
 		my @parentIds;
 		my $index;
@@ -177,10 +182,15 @@ sub EntitySaveEntity {
 			}
 			
 			push(@parentIds, $currentId1);
+			
+			Tools::Log("\t\t\tPush ParentId: $currentId1");
+			
 		}
 		
 		$parentId = "";
 		$parentId   = $parentIds[$#parentIds];
+
+		Tools::Log("\t\tParentId: $parentId") if defined $parentId;
 		
 		$id         = $tokens[$#tokens - 2];
 		$entityType = $tokens[$#tokens - 1];
@@ -200,6 +210,8 @@ sub EntitySaveEntity {
 			next;
 		}
 
+		Tools::Log("\t\tNew Id: $new_id");
+
 		my %row_data;
 
 		$row_data{VALUE}       = $value;
@@ -213,16 +225,26 @@ sub EntitySaveEntity {
 
 		$parents{''} = \%entityValues;
 		
+		Tools::Log("\t\tNum Parent Ids: $#parentIds");
+		
 		for my $index (0..$#parentIds)
 		{
-			$currentId = $parentIds[$index];
-				
-			my %properties = %{$parentItem{PROPERTIES}};
-			%parentItem = %{$properties{$currentId}};
+			Tools::Log("\t\t\tIndex: $index");
 
-			my %hren = %parentItem;
+			$currentId = $parentIds[$index];
 			
-			$parents{$currentId} = \%hren;
+			my $properties = $parentItem{PROPERTIES};
+	
+			if (defined ($properties))
+			{
+				my %properties = %{$properties};
+			
+				%parentItem = %{$properties{$currentId}};
+	
+				my %hren = %parentItem;
+				
+				$parents{$currentId} = \%hren;
+			}
 		}
 
 		if ($#parentIds >= 0)
@@ -297,6 +319,7 @@ sub EntityAddEntity {
 	my $p4           = $_[6];
 	my $p5           = $_[7];
 	my $p6           = $_[8];
+	my $level        = $_[9];
 	
 	my $newId      = $query1->param("elId");
 	my $entity     = $query1->param("entity");
@@ -311,13 +334,13 @@ sub EntityAddEntity {
 		
 	JsonHelper::writeJSONFile($entityFilename, $data);	
 
-	my $filename = Configuration::GetConfigurationFolder() . "Entity2Row.html";
+	my $filename = Configuration::GetConfigurationFolder() . "Entity3 - Add Row.html";
 	 
 	my $template = HTML::Template->new(filename => $filename, loop_context_vars => 1, die_on_bad_params => 0);
 
 	my $entityData = Entities::GetEntityData($projectId, $entityType, $entityName, $p1, $p2, $p4, $p4, $p5, $p6);
 
-	my ($maxIndex, @loop_data) = Pages::ListEntitySettings($projectId, $entityType, $entityName, $p1, $p2, $p4, $p4, $p5, $p6, $newId, "1");
+	my ($maxIndex, @loop_data) = Pages::ListEntitySettings($projectId, $entityType, $entityName, $p1, $p2, $p4, $p4, $p5, $p6, $newId, "1", $level);
 
 	$template->param(ENTTITY_ARRAY_VALUE_ID => $entityArrayValueId);
 	$template->param(KEY_DESCRIPTION => "Novi element");
@@ -325,8 +348,10 @@ sub EntityAddEntity {
 	$template->param(ELEMENT_ID => $newId . "_" . $entity . "_" . $property);
 	$template->param(KEY => $property);
 	$template->param(VALUE => $entityName);
-	$template->param(ENTITIES => \@loop_data);
+	$template->param(SETTINGS => \@loop_data);
 	$template->param(PROJECT_ID => $projectId);
+	$template->param(LEVEL => $level);
+	$template->param(LEVEL_OFFSET => ($level * 30));
 	
 	# Send HTML to the browser.
 	my $txt = $template->output();
@@ -748,7 +773,9 @@ sub PerformAction {
 	my $p6           = $_[9];
 	my $singleEntity = $_[10];
 	
-	$query1           = $_[11];
+	$query1          = $_[11];
+
+	my $level        = $_[12];
 
 	Tools::LogEnterFunction("PerformAction");
 
@@ -775,7 +802,7 @@ sub PerformAction {
 			FileManagerUploadFile( $p1 );
 		}
 		when ('AddEntity') {
-			EntityAddEntity( $projectId, $entityType, $entityName, $p1, $p2, $p3, $p4, $p5, $p6 );
+			EntityAddEntity( $projectId, $entityType, $entityName, $p1, $p2, $p3, $p4, $p5, $p6, $level );
 		}
 		when ('DeleteEntity') {
 			EntityDeleteEntity( $projectId, $entityType, $entityName, $p1, $p2, $p3, $p4, $p5, $p6 );

@@ -902,7 +902,7 @@ function entityAddProject(pId, eType)
 //Function which creates new project
 //-----------------------------------------------------------------------------
 
-function entityAddEntity(pId, eTyp, project, addRowId, entityArrayValueId, parentItemIndex, submitButtonId)
+function entityAddEntity(pId, eTyp, project, addRowId, entityArrayValueId, parentItemIndex, submitButtonId, level)
 {
 	var x;
 
@@ -979,7 +979,7 @@ function entityAddEntity(pId, eTyp, project, addRowId, entityArrayValueId, paren
 	$.ajax({    // ajax call starts
     	url     : 'jwe.pl', // JQuery loads serverside.php
     	type    : "POST",
-        data    : "performAction=AddEntity&amp;pId=" + pId + "&amp;eType=" + eTyp + "&amp;eName=" + eNam + "&amp;$1=" + project + "&amp;elId=" + newId + "&amp;entity=" + entity + "&amp;property=" + property + "&amp;entityArrayValueId=" + entityArrayValueId + "&amp;parentItemIndex=" + parentItemIndex, // Send value of the clicked button
+        data    : "performAction=AddEntity&amp;pId=" + pId + "&amp;eType=" + eTyp + "&amp;eName=" + eNam + "&amp;$1=" + project + "&amp;elId=" + newId + "&amp;entity=" + entity + "&amp;property=" + property + "&amp;entityArrayValueId=" + entityArrayValueId + "&amp;parentItemIndex=" + parentItemIndex + "&amp;level=" + (level + 1), // Send value of the clicked button
         dataType: 'text', 
         
         success: function(data) // Variable data contains the data we get from serverside
@@ -1045,6 +1045,66 @@ function entityAddEntity(pId, eTyp, project, addRowId, entityArrayValueId, paren
         }
     });
 }
+
+//-----------------------------------------------------------------------------
+//Function which creates new project
+//-----------------------------------------------------------------------------
+
+function entityExpandEntity(elementId, link, position, index)
+{
+	toggleDisplay(elementId);
+	
+
+	$.ajax({    // ajax call starts
+		url     : 'jwe.pl', // JQuery loads serverside.php
+		type    : "POST",
+		data    : "aaa=" + link, // Send value of the clicked button
+		dataType: 'text', 
+      
+		success: function(data) // Variable data contains the data we get from serverside
+		{
+			var parentTable2 = document.getElementById("projectSettingsTable");
+			var tbody2 = parentTable2.children[0];
+
+			var html = $.parseHTML(data);
+			
+			var entityTable = html[0];
+			var fileForms = html[1];
+			
+			var fileFormsTable = fileForms.children[0];
+			var fileFormsTableBody = fileFormsTable.children[0];
+			
+			var el1 = document.getElementById(position);
+			el1.innerHTML=entityTable.innerHTML;
+			
+			var fileUploadIndex = 0;
+
+			for (var i = 0; i < 30; i++)
+			{
+				var usedId = index + "_" + i;
+				var editorTextArea = document.getElementById(usedId + "_fileEditorTextArea");
+				
+				if (editorTextArea != null)
+				{
+					codeMirrorEditor[usedId] = CodeMirror.fromTextArea(editorTextArea, {
+				         lineNumbers: true,
+				         lineWrapping: true,
+				         height: "400px",
+				         mode: "text/html"
+		  			});
+					
+					var tr3 = tbody2.insertRow(-1);
+					tr3.innerHTML = fileFormsTableBody.children[fileUploadIndex].innerHTML;
+					
+					registerSubmitForm2(usedId + '_uploadFilesForm', '<h3>File is uploaded.</h3>', '', null, "1", "errorMessage");
+
+					fileUploadIndex = fileUploadIndex + 1;
+				}
+			}
+		}
+	});
+}
+
 
 //-----------------------------------------------------------------------------
 // Function which deletes project from project group

@@ -1,0 +1,7 @@
+				<table id="<TMPL_VAR NAME=ELEMENT_ID>_rowEntityEditorEntityTable" class="entity2Table2" cellpadding="1" cellspacing="1" style="padding-left:<TMPL_VAR NAME=LEVEL_OFFSET>px;"><TMPL_LOOP NAME=SETTINGS>
+<TMPL_IF NAME=TYPE_FILE><TMPL_INCLUDE NAME="Entity3 - Table Row File.html">
+</TMPL_IF><TMPL_IF NAME=TYPE_STRING><TMPL_INCLUDE NAME="Entity3 - Table Row String.html">
+</TMPL_IF><TMPL_IF NAME=TYPE_ENTITY_NAME><TMPL_INCLUDE NAME="Entity3 - Table Row EntityName.html">
+</TMPL_IF><TMPL_IF NAME=TYPE_FILES><TMPL_INCLUDE NAME="Entity3 - Table Row Files.html">
+</TMPL_IF><TMPL_IF NAME=TYPE_ENTITIES><TMPL_INCLUDE NAME="Entity3 - Table Row Entities.html"></TMPL_IF></TMPL_LOOP>
+				</table>

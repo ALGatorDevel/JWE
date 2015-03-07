@@ -57,6 +57,13 @@ my $p4    = $query->param("\$4");
 my $p5    = $query->param("\$5");
 my $p6    = $query->param("\$6");
 
+my $parentIndex = $query->param("index"); 
+my $level = $query->param("level"); 
+my $ajax = $query->param("ajax"); 
+
+$level = 0 if !defined $level;
+$ajax = 0 if !defined $ajax;
+
 Tools::Log("------------------------------------------------------------");
 
 
@@ -68,8 +75,7 @@ if ( defined($aaa) ) {
 	
 	$editSingleEntity = 1; 
 	
-	($pId, $eType, $eName, $p1, $p2, $p3, $p4, $p5, $p6) = Tools::getParametersFromJWELink($aaa);
-
+	($pId, $eType, $eName, $p1, $p2, $p3, $p4, $p5, $p6, $parentIndex, $level, $ajax) = Tools::getParametersFromJWELink($aaa);
 }
 
 Tools::Log("action: $action") if defined($action);
@@ -82,6 +88,8 @@ Tools::Log("p3    : $p3")     if defined($p3);
 Tools::Log("p4    : $p4")     if defined($p4);
 Tools::Log("p5    : $p5")     if defined($p5);
 Tools::Log("p6    : $p6")     if defined($p6);
+Tools::Log("index : $parentIndex")  if defined($parentIndex);
+Tools::Log("level : $level")  if defined($level);
 Tools::Log(" ");
 
 #################################################
@@ -110,7 +118,7 @@ if ( $loginStatus == 0 ) {
 # if action is defined, ignore other parameters
 if ( defined($action) ) {
 
-	Actions::PerformAction( $action, $pId, $eType, $eName, $p1, $p2, $p3, $p4, $p5, $p6, $editSingleEntity, $query );
+	Actions::PerformAction( $action, $pId, $eType, $eName, $p1, $p2, $p3, $p4, $p5, $p6, $editSingleEntity, $query, $level );
 
 	exit;
 }
@@ -136,7 +144,7 @@ if ( !defined($eType) ) {
 # all parameters are defined => edit of entity is required
 if (defined($eName)) {
 	
-	Pages::EditEntity( $pId, $eType, $eName, $p1, $p2, $p3, $p4, $p5, $p6, $editSingleEntity );
+	Pages::EditEntity( $pId, $eType, $eName, $p1, $p2, $p3, $p4, $p5, $p6, $editSingleEntity, $parentIndex, $level, $ajax );
 
 	exit;
 }

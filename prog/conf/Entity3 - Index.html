@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<TMPL_INCLUDE NAME="Header.html">
+	<body>
+
+		<link rel="stylesheet" type="text/css" media="screen" href="css/ui-lightness/jquery-ui-1.10.4.custom.css" />
+		<link rel="stylesheet" type="text/css" media="screen" href="css/ui.jqgrid.css" />
+		<link rel="stylesheet" href="codemirror/lib/codemirror.css" />
+		<link rel="stylesheet" href="css/jwe.css" />
+
+		<script src="codemirror/lib/codemirror.js" type="text/javascript"></script>
+		<script src="codemirror/addon/edit/matchbrackets.js" type="text/javascript"></script>
+		<script src="codemirror/mode/clike/clike.js" type="text/javascript"></script>
+
+		<script src="js/jquery-2.1.1.js" type="text/javascript"></script>
+		<script src="js/jquery.corner.js" type="text/javascript"></script>
+		<script src="js/i18n/grid.locale-en.js" type="text/javascript"></script>
+		<script src="js/jquery.jqGrid.js" type="text/javascript"></script>
+
+		<script src="js/jwe.js" type="text/javascript"></script>
+		<script src="codemirror/mode/css/css.js"></script>
+
+		<script>
+			var codeMirrorEditor = new Object();
+			
+			jQuery(document).ready(function()
+			{ 
+				// Get the dimensions of the browser window
+				var winwidth = $(window).width();
+				var winheight = $(window).height();
+				
+				// Get the dimensions of the layer
+				var layerwidth = FileManagerDiv.clientWidth;
+				var layerheight = FileManagerDiv.clientHeight;
+				
+				// Centre the layer
+				FileManagerDiv.style.left = ((winwidth - layerwidth)/2) + "px";
+				FileManagerDiv.style.top = ((winheight - layerheight)/2) + "px";
+
+				$('.roundedCorner2').corner("keep");
+				$('.roundedCorner3').corner();
+
+				$('.roundedCornerFileEditor').corner();
+				$('.roundedCornerEntities').corner("keep");
+				$('.roundedCornerEntityEditor').corner();
+				
+				$('.thankyouModal').corner();
+
+				registerSubmitForm('saveEntity2', '<h3>Entity is saved.</h3>', '', null, "0", 'errorMessage');
+				
+	  			fileManagerInitToolbar("folderup", "copyfile", "cutfile", "deletefile", "pastefile");
+	  			fileManagerCreateGrid('list', "<TMPL_VAR NAME=UPLOAD_FOLDER>", "<TMPL_VAR NAME=UPLOAD_FOLDER>", true);
+	  			fileManagerSubmitForm('list', 'uploadFiles', '<h3>Thank You! Your upload is complete...</h3>', 'files');
+				hideElement("fileManager", 1);
+			}); 
+		
+			
+		</script>			
+
+<TMPL_INCLUDE NAME="Entity3 - File Manager.html">
+
+
+<TMPL_IF NAME="SINGLE_ENTITY"><div id="main-wrapper2"><TMPL_ELSE><div id="main-wrapper"></TMPL_IF>
+<TMPL_IF NAME="SINGLE_ENTITY"><TMPL_ELSE><TMPL_INCLUDE NAME="Title.html"></TMPL_IF>
+
+<TMPL_IF NAME="SINGLE_ENTITY"><div id="container2"><TMPL_ELSE><div id="container"></TMPL_IF>
+<TMPL_IF NAME="SINGLE_ENTITY"><TMPL_ELSE><h3><TMPL_VAR NAME=ENTITY_TYPE>: <TMPL_VAR NAME=ENTITY_NAME></h3></TMPL_IF>
+
+            <span id="errorMessage"></span>
+
+ 			<form id="saveEntity2" action="jwe.pl" method="get">
+ 				
+ 				<input type="hidden" name="performAction" value="SaveEntity" />
+	 			<input type="hidden" name="pId"           value="<TMPL_VAR NAME=PROJECT_ID>" />
+	 			<input type="hidden" name="eType"         value="<TMPL_VAR NAME=ENTITY_TYPE>" />
+	 			<input type="hidden" name="eName"         value="<TMPL_VAR NAME=ENTITY_NAME>" />
+ 	 			<input type="hidden" name="p1"            value="<TMPL_VAR NAME=P1>" />
+	 			<input type="hidden" name="p2"            value="<TMPL_VAR NAME=P2>" />
+	 			<input type="hidden" name="p3"            value="<TMPL_VAR NAME=P3>" />
+	 			<input type="hidden" name="p4"            value="<TMPL_VAR NAME=P4>" />
+	 			<input type="hidden" name="p5"            value="<TMPL_VAR NAME=P5>" />
+	 			<input type="hidden" name="p6"            value="<TMPL_VAR NAME=P6>" />
+ 			
+				<button id="saveEntityButton" type="submit" style="display:none">Submit</button><br />
+
+<TMPL_INCLUDE NAME="Entity3 - Table.html">
+				
+ 			</form>
+			
+			<br />
+
+<TMPL_INCLUDE NAME="Entity3 - File Upload Table.html">
+			
+		</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,8 @@
+					<tr id="<TMPL_VAR NAME=ELEMENT_ID>_rowString">
+						<td class="entity2TableColumn0">
+							<input class="keyDescriptionString" type="text" readonly="readonly" value="<TMPL_VAR NAME=KEY_DESCRIPTION>" />
+						</td>
+						<td class="entity2TableColumn1" colspan="3">
+							<input id="<TMPL_VAR NAME=ELEMENT_ID>_textField" class="editableTextInput" type="text" name="<TMPL_VAR NAME=ELEMENT_ID>" value="<TMPL_VAR NAME=VALUE>"  onkeyup="validateAndSave(this.value,'<TMPL_VAR NAME=ELEMENT_ID>_textField','<TMPL_VAR NAME=PATTERN>', <TMPL_IF NAME=VALIDATION>1<TMPL_ELSE>0</TMPL_IF>,'saveEntityButton', 'errorMessage')" />
+						</td>
+					</tr>

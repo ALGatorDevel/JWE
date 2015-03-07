@@ -514,6 +514,10 @@ sub SaveEntity
 	my $returnValue = 1;
 
 	my $entityFilename   = Configuration::GetEntityFilename	($projectId, $entityType, $entityName, $p1, $p2, $p3, $p4, $p5, $p6);
+	
+	Tools::Log("");	
+	Tools::Log("EntityFileName: $entityFilename");
+
 	my $entitySchemeData = Configuration::GetEntitySchemeData($projectId, $entityType);
 
 	my $data             = CreateEntitySettings($projectId, $entityType, $entityName, $p1, $p2, $p3, $p4, $p5, $p6);
@@ -525,186 +529,221 @@ sub SaveEntity
 	
 	my $propertyList = $entityProperties{PROPERTIES};
 	
+	my $notExpanded = 0;
+	
 	foreach $propertyKey ( sort(keys(%$propertyList)))
 	{
+		Tools::Log("");	
+		Tools::Log("Property key: $propertyKey");
+
 		my $property = $entityProperties{PROPERTIES}->{$propertyKey};
+
+		Tools::Log("Property: $property") if defined $property;
 		
 		if (defined($property))
 		{
 			my $name  = $property->{PROPERTY};
 			my $value = $property->{VALUE};
-	
+
 			my $entityProperty = $schemeProperties->{$name};
 			my $type           = $schemeProperties->{$name}->{type};
 
-			my $currentPropertyList = $property->{PROPERTIES};
+			Tools::Log("\tName: $name") if defined $name;
+			Tools::Log("\tValue: $value") if defined $value;
+			Tools::Log("\tProperty: $entityProperty") if defined $entityProperty;
+			Tools::Log("\tType: $type") if defined $type;;
 			
-			if ($type =~ /(.*)\[\]/)
+			if ($name eq "NotExpanded")
 			{
-				if (defined($currentPropertyList))
-				{
-					foreach my $currentPropertyKey ( sort(keys(%$currentPropertyList)))
-					{
-						my $currentProperty = $currentPropertyList->{$currentPropertyKey};
-						my $newEType = $entityProperty->{eType};
-						my $newEName = $currentProperty->{VALUE};
-						
-						my @parameters = @{$entityProperty->{parameters}};
-						
-						my $pp1 = $parameters[0] if scalar(@parameters) > 0;
-						my $pp2 = $parameters[1] if scalar(@parameters) > 1;
-						my $pp3 = $parameters[2] if scalar(@parameters) > 2;
-						my $pp4 = $parameters[3] if scalar(@parameters) > 3;
-						my $pp5 = $parameters[4] if scalar(@parameters) > 4;
-						my $pp6 = $parameters[5] if scalar(@parameters) > 5;
-						
-						if (defined($pp1))
-						{
-							$pp1 =~ s/\{\}/$entityName/g;
-							
-							$pp1 =~ s/\$1/$p1/g;
-							$pp1 =~ s/\$2/$p2/g;
-							$pp1 =~ s/\$3/$p3/g;
-							$pp1 =~ s/\$4/$p4/g;
-							$pp1 =~ s/\$5/$p5/g;
-							$pp1 =~ s/\$6/$p6/g;
-						}
-	
-						if (defined($pp2))
-						{
-							$pp2 =~ s/\{\}/$entityName/g;
-							
-							$pp2 =~ s/\$1/$p1/g;
-							$pp2 =~ s/\$2/$p2/g;
-							$pp2 =~ s/\$3/$p3/g;
-							$pp2 =~ s/\$4/$p4/g;
-							$pp2 =~ s/\$5/$p5/g;
-							$pp2 =~ s/\$6/$p6/g;
-						}
-	
-						if (defined($pp3))
-						{
-							$pp3 =~ s/\{\}/$entityName/g;
-							
-							$pp3 =~ s/\$1/$p1/g;
-							$pp3 =~ s/\$2/$p2/g;
-							$pp3 =~ s/\$3/$p3/g;
-							$pp3 =~ s/\$4/$p4/g;
-							$pp3 =~ s/\$5/$p5/g;
-							$pp3 =~ s/\$6/$p6/g;
-						}
-	
-						if (defined($pp4))
-						{
-							$pp4 =~ s/\{\}/$entityName/g;
-							
-							$pp4 =~ s/\$1/$p1/g;
-							$pp4 =~ s/\$2/$p2/g;
-							$pp4 =~ s/\$3/$p3/g;
-							$pp4 =~ s/\$4/$p4/g;
-							$pp4 =~ s/\$5/$p5/g;
-							$pp4 =~ s/\$6/$p6/g;
-						}
-	
-						if (defined($pp5))
-						{
-							$pp5 =~ s/\{\}/$entityName/g;
-							
-							$pp5 =~ s/\$1/$p1/g;
-							$pp5 =~ s/\$2/$p2/g;
-							$pp5 =~ s/\$3/$p3/g;
-							$pp5 =~ s/\$4/$p4/g;
-							$pp5 =~ s/\$5/$p5/g;
-							$pp5 =~ s/\$6/$p6/g;
-						}
-	
-						if (defined($pp6))
-						{
-							$pp1 =~ s/\{\}/$entityName/g;
-							
-							$pp6 =~ s/\$1/$p1/g;
-							$pp6 =~ s/\$2/$p2/g;
-							$pp6 =~ s/\$3/$p3/g;
-							$pp6 =~ s/\$4/$p4/g;
-							$pp6 =~ s/\$5/$p5/g;
-							$pp6 =~ s/\$6/$p6/g;
-						}
-	
-						my $result = SaveEntity($currentProperty, $projectId, $newEType, $newEName, $pp1, $pp2, $pp3, $pp4, $pp5, $pp6);
-						
-						$returnValue = $returnValue && $result;
-					}
-
-					my @values;
-	
-					foreach my $currentPropertyKey ( sort(keys(%$currentPropertyList)))
-					{
-						my $currentProperty = $currentPropertyList->{$currentPropertyKey};
-						my $newEName = $currentProperty->{VALUE};
-	
-						push(@values, $newEName);
-					}
-					
-					$properties->{$name} = \@values;
-				}
-			}
-			elsif ($type eq "Files")
-			{
-				if (defined($currentPropertyList))
-				{
-					my @values;
-	
-					foreach my $currentPropertyKey ( sort(keys(%$currentPropertyList)))
-					{
-						my $currentProperty = $currentPropertyList->{$currentPropertyKey};
-						my $value = $currentProperty->{VALUE};
-
-						my @filenames = split(",", $value);
-						
-						foreach my $filename (@filenames)
-						{
-							my $trimmedFilename = $filename;
-							$trimmedFilename =~ s/^\s+|\s+$//g;
-							
-							push(@values, $trimmedFilename);
-						}
-					}
-										
-					$properties->{$name} = \@values;
-				}
-					
-#
-#
-#				my $val = $properties->{$name};
-#				
-#				my @values;
-#				
-#				foreach my $v1 (@$val)
-#				{
-#					push(@values, $v1);
-#				}
-#				
-#				my @filenames = split(",", $value);
-#				
-#				foreach my $filename (@filenames)
-#				{
-#					push(@values, $filename);
-#				}
-#					
-#				$properties->{$name} = \@values;
+				$notExpanded = 1;
 			}
 			else
 			{
-				$properties->{$name} = $value;
+				my $currentPropertyList = $property->{PROPERTIES};
+	
+				Tools::Log("\t\tCurrent Property List: $currentPropertyList") if defined $currentPropertyList;
+				
+				if ($type =~ /(.*)\[\]/)
+				{
+					if (defined($currentPropertyList))
+					{
+						foreach my $currentPropertyKey ( sort(keys(%$currentPropertyList)))
+						{
+							my $currentProperty = $currentPropertyList->{$currentPropertyKey};
+							my $newEType = $entityProperty->{eType};
+							my $newEName = $currentProperty->{VALUE};
+	
+							Tools::Log("");	
+							Tools::Log("\t\t\tNewEName: $newEName") if defined $newEName;
+							Tools::Log("\t\t\tNewEType: $newEType") if defined $newEType;
+							Tools::Log("\t\t\tProperty: $currentProperty") if defined $currentProperty;
+							
+							my @parameters = @{$entityProperty->{parameters}};
+							
+							my $pp1 = $parameters[0] if scalar(@parameters) > 0;
+							my $pp2 = $parameters[1] if scalar(@parameters) > 1;
+							my $pp3 = $parameters[2] if scalar(@parameters) > 2;
+							my $pp4 = $parameters[3] if scalar(@parameters) > 3;
+							my $pp5 = $parameters[4] if scalar(@parameters) > 4;
+							my $pp6 = $parameters[5] if scalar(@parameters) > 5;
+							
+							if (defined($pp1))
+							{
+								$pp1 =~ s/\{\}/$entityName/g;
+								
+								$pp1 =~ s/\$1/$p1/g;
+								$pp1 =~ s/\$2/$p2/g;
+								$pp1 =~ s/\$3/$p3/g;
+								$pp1 =~ s/\$4/$p4/g;
+								$pp1 =~ s/\$5/$p5/g;
+								$pp1 =~ s/\$6/$p6/g;
+							}
+		
+							if (defined($pp2))
+							{
+								$pp2 =~ s/\{\}/$entityName/g;
+								
+								$pp2 =~ s/\$1/$p1/g;
+								$pp2 =~ s/\$2/$p2/g;
+								$pp2 =~ s/\$3/$p3/g;
+								$pp2 =~ s/\$4/$p4/g;
+								$pp2 =~ s/\$5/$p5/g;
+								$pp2 =~ s/\$6/$p6/g;
+							}
+		
+							if (defined($pp3))
+							{
+								$pp3 =~ s/\{\}/$entityName/g;
+								
+								$pp3 =~ s/\$1/$p1/g;
+								$pp3 =~ s/\$2/$p2/g;
+								$pp3 =~ s/\$3/$p3/g;
+								$pp3 =~ s/\$4/$p4/g;
+								$pp3 =~ s/\$5/$p5/g;
+								$pp3 =~ s/\$6/$p6/g;
+							}
+		
+							if (defined($pp4))
+							{
+								$pp4 =~ s/\{\}/$entityName/g;
+								
+								$pp4 =~ s/\$1/$p1/g;
+								$pp4 =~ s/\$2/$p2/g;
+								$pp4 =~ s/\$3/$p3/g;
+								$pp4 =~ s/\$4/$p4/g;
+								$pp4 =~ s/\$5/$p5/g;
+								$pp4 =~ s/\$6/$p6/g;
+							}
+		
+							if (defined($pp5))
+							{
+								$pp5 =~ s/\{\}/$entityName/g;
+								
+								$pp5 =~ s/\$1/$p1/g;
+								$pp5 =~ s/\$2/$p2/g;
+								$pp5 =~ s/\$3/$p3/g;
+								$pp5 =~ s/\$4/$p4/g;
+								$pp5 =~ s/\$5/$p5/g;
+								$pp5 =~ s/\$6/$p6/g;
+							}
+		
+							if (defined($pp6))
+							{
+								$pp1 =~ s/\{\}/$entityName/g;
+								
+								$pp6 =~ s/\$1/$p1/g;
+								$pp6 =~ s/\$2/$p2/g;
+								$pp6 =~ s/\$3/$p3/g;
+								$pp6 =~ s/\$4/$p4/g;
+								$pp6 =~ s/\$5/$p5/g;
+								$pp6 =~ s/\$6/$p6/g;
+							}
+		
+							my $result = SaveEntity($currentProperty, $projectId, $newEType, $newEName, $pp1, $pp2, $pp3, $pp4, $pp5, $pp6);
+							
+							$returnValue = $returnValue && $result;
+						}
+	
+						my @values;
+		
+						foreach my $currentPropertyKey ( sort(keys(%$currentPropertyList)))
+						{
+							my $currentProperty = $currentPropertyList->{$currentPropertyKey};
+							my $newEName = $currentProperty->{VALUE};
+		
+							push(@values, $newEName);
+						}
+						
+						$properties->{$name} = \@values;
+					}
+				}
+				elsif ($type eq "Files")
+				{
+					if (defined($currentPropertyList))
+					{
+						my @values;
+		
+						foreach my $currentPropertyKey ( sort(keys(%$currentPropertyList)))
+						{
+							my $currentProperty = $currentPropertyList->{$currentPropertyKey};
+							my $value = $currentProperty->{VALUE};
+	
+							my @filenames = split(",", $value);
+							
+							foreach my $filename (@filenames)
+							{
+								my $trimmedFilename = $filename;
+								$trimmedFilename =~ s/^\s+|\s+$//g;
+								
+								push(@values, $trimmedFilename);
+							}
+						}
+											
+						$properties->{$name} = \@values;
+					}
+						
+	#
+	#
+	#				my $val = $properties->{$name};
+	#				
+	#				my @values;
+	#				
+	#				foreach my $v1 (@$val)
+	#				{
+	#					push(@values, $v1);
+	#				}
+	#				
+	#				my @filenames = split(",", $value);
+	#				
+	#				foreach my $filename (@filenames)
+	#				{
+	#					push(@values, $filename);
+	#				}
+	#					
+	#				$properties->{$name} = \@values;
+				}
+				else
+				{
+					$properties->{$name} = $value;
+				}
 			}
 		}
 	}
-		
-	$data->{$entityType} = $properties;
 
-	my $result = JsonHelper::writeJSONFile($entityFilename, $data);
+	if ($notExpanded == 0)
+	{
+		Tools::Log("Write file $entityFilename.");
+				
+		$data->{$entityType} = $properties;
 	
-	$returnValue = $returnValue && $result;
+		my $result = JsonHelper::writeJSONFile($entityFilename, $data);
+		
+		$returnValue = $returnValue && $result;
+	}
+	else
+	{
+		Tools::Log("Not expanded. File $entityFilename will not change.")
+	}
 
 	Tools::LogExitFunction("SaveEntity");
 

@@ -165,6 +165,10 @@ sub ListEntitySettings
     my $parentIndex = $_[9];
     
     my $addRow		= $_[10];
+    
+    my $level       = $_[11];
+    
+    $level = 0 if !defined $level;
 
 	Tools::LogEnterFunction("ListEntitySettings");
 
@@ -579,7 +583,7 @@ sub ListEntitySettings
 				
 			foreach my $currentEntityName (@$value)
 			{
-				my ($new_index, @entities) = ListEntitySettings($projectId, $propertyEType, $currentEntityName, $pp1, $pp2, $pp3, $pp4, $pp5, $pp6, $parentIndex . $index . "_" . $tempIndex, $addRow);
+#				my ($new_index, @entities) = ListEntitySettings($projectId, $propertyEType, $currentEntityName, $pp1, $pp2, $pp3, $pp4, $pp5, $pp6, $parentIndex . $index . "_" . $tempIndex, $addRow);
 	
 				my %row_data;
 
@@ -609,11 +613,13 @@ sub ListEntitySettings
 				$row_data{KEY_DESCRIPTION} = $tempKeyDescription;			
 				$row_data{VALUE}           = $currentEntityName;
 
-				my $tempLink = Tools::getJWELink($projectId, $propertyEType, $currentEntityName, $pp1, $pp2, $pp3, $pp4, $pp5, $pp6);
+				$row_data{LINK}            = Tools::getJWELink($projectId, $propertyEType, $currentEntityName, $pp1, $pp2, $pp3, $pp4, $pp5, $pp6, 0, 0);
+				$row_data{EXPAND_LINK}     = Tools::getJWELink($projectId, $propertyEType, $currentEntityName, $pp1, $pp2, $pp3, $pp4, $pp5, $pp6, $row_data{INDEX}, $level + 1, 1);
 				
-				$row_data{LINK}            = $tempLink;
+				$row_data{LEVEL}           = $level + 1;
+				$row_data{LEVEL_OFFSET}    = $level * 30 + 30;
 							
-				$row_data{ENTITIES}        = \@entities;
+#				$row_data{ENTITIES}        = \@entities;
 					
 				push(@entities2, \%row_data);
 
@@ -1001,15 +1007,25 @@ sub EditEntity {
 	my $p5           = $_[7];
 	my $p6           = $_[8];
 	my $singleEntity = $_[9];
+	my $index        = $_[10];
+	my $level        = $_[11];
+	my $ajax         = $_[12];
+	
+	$level = 0 if !defined $level;
+	$ajax  = 1 if !defined $ajax;
 
 	Tools::LogEnterFunction("EditEntity");
 
-	my $index;
 
-	my $templateFilename = Configuration::GetConfigurationFolder() . 'Entity2.html';
+	my $templateFilename;
 	
-	if ( $singleEntity == 1 ) {
-		$templateFilename = Configuration::GetConfigurationFolder() . 'Entity2 - clean.html';
+	if ( $ajax == 0 )
+	{
+ 		$templateFilename = Configuration::GetConfigurationFolder() . 'Entity3 - Index.html';	
+	}
+	else
+	{
+		$templateFilename = Configuration::GetConfigurationFolder() . 'Entity3 - Ajax Entity Entry.html';
 	}
 
 	my $template = HTML::Template->new(
@@ -1029,13 +1045,17 @@ sub EditEntity {
 	$template->param( P5          => $p5 );
 	$template->param( P6          => $p6 );
 
-	my ( $maxIndex, @loop_data ) =
-	  ListEntitySettings( $projectId, $entityType, $entityName,	$p1, $p2, $p3, $p4, $p5, $p6, $index, "1" );
+	$template->param( SINGLE_ENTITY => $singleEntity );
 
+	my ( $maxIndex, @loop_data ) =
+	  ListEntitySettings( $projectId, $entityType, $entityName,	$p1, $p2, $p3, $p4, $p5, $p6, $index, "1", $level );
+
+	$template->param( ELEMENT_ID => "Root_Element");
+	$template->param( LEVEL_OFFSET => $level );
 	$template->param( SETTINGS => \@loop_data );
 
 	# Send HTML to the browser.
-	print "Content-type:text/html\n\n";
+	print "Content-type:text/html\n\n" if ($ajax != 1);
 	print $template->output();
 
 

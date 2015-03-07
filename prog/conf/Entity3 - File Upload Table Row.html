@@ -1,0 +1,27 @@
+				<TMPL_LOOP NAME="SETTINGS"><TMPL_IF NAME="TYPE_FILE"><tr>
+					<td>	
+						<div>
+							<form id="<TMPL_VAR NAME=INDEX>_uploadFilesForm" action="jwe.pl" method='post' enctype="multipart/form-data">
+								<button id="<TMPL_VAR NAME=INDEX>_uploadFileButton" type="submit"><img src="images/Files-Upload-File-icon_24.png" /></button>
+								<input type="file" id="<TMPL_VAR NAME=INDEX>_files" name="<TMPL_VAR NAME=INDEX>_files" length=30 style="border:0px solid gray" />
+
+					 			<input type="hidden" name="filesId" value="<TMPL_VAR NAME=INDEX>_files" />
+					 			<input type="hidden" name="sessionId" value="<TMPL_VAR NAME=SESSION_ID>" />
+					 			<input type="hidden" name="pId" value="<TMPL_VAR NAME=PROJECT_ID>" />
+					 			<input type="hidden" name="eType" value="<TMPL_VAR NAME=ENTITY_TYPE>" />
+					 			<input type="hidden" name="$1" value="<TMPL_VAR NAME=ROOT>" />
+								<input type="hidden" name="performAction" value="EntityUploadFile" />
+								
+								<TMPL_IF NAME=KEY></TMPL_IF>
+								
+							</form>
+							<script>
+							jQuery(document).ready(function()
+							{ 
+								registerSubmitForm2('<TMPL_VAR NAME=INDEX>_uploadFilesForm', '<h3>File is uploaded.</h3>', '<TMPL_VAR NAME=INDEX>_files', null, "1", "errorMessage");
+							}); 
+							</script>
+						</div>
+					</td>
+				</tr></TMPL_IF>
+				</TMPL_LOOP>

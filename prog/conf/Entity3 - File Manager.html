@@ -1,0 +1,77 @@
+		<div id="fileManager" class="transparent" style="width:100%;height:100%;z-index:1; position:absolute; display:none1">
+			<div id="FileManagerDiv" class="roundedCorner3" style="width:80%; height:80%; margin:auto; position:absolute; background:white; border:1px solid gray; z-index:10; display:none1">
+				<table style="width:100%">
+					<tr>
+						<td style="width:100%" align="right">
+				 			<button id="closeFileManager" type="submit" onclick="closeFileManager(true, 'container', 'list', 'fileManager');">
+								<img src="images/FileManager-Apply-32.png"></img>
+							</button>
+				 			<button id="closeFileManager" type="submit" onclick="closeFileManager(false, 'container', 'list', 'fileManager');">
+								<img src="images/FileManager-CloseWindow-32.png"></img>
+							</button>
+						</td>
+					</tr>
+				</table>
+				<table>
+					<tr valign="center">
+						<td>
+							<button type="submit"  onclick="fileManagerBrowseFolder('list', '<TMPL_VAR NAME=UPLOAD_FOLDER>', 1, 1)">
+								<img src="images/Home-icon.png" alt="Home"/>
+							</button>
+						</td>
+						<td>
+							<button id="folderup" type="submit" onclick="fileManagerBrowseFolder('list', '..', 0, 0)">
+								<img src="images/arrow-up-icon.png" alt="Go folder up"/>
+							</button>
+						</td>
+						<td>
+							<button type="submit" onclick="fileManagerCreateFolder('list')">
+								<img src="images/Add-icon.png" alt="Create folder" />
+							</button>
+						</td>
+						<td>
+							<button id="copyfile" type="submit" onclick="fileManagerCopyFileToClipboard('list')" disabled="disabled">
+								<img src="images/Files-Copy-File-icon_32.png" />
+							</button>
+						</td>
+						<td>
+							<button id="cutfile" type="submit" onclick="fileManagerCutFileToClipboard('list')" disabled="disabled">
+								<img src="images/Files-Cut-File-icon_32.png" />
+							</button>
+						</td>
+						<td>
+							<button id="pastefile" type="submit" onclick="fileManagerPasteFile('list')" disabled="disabled">
+								<img src="images/Files-Paste-File-icon_32.png" />
+							</button>
+						</td>
+						<td>
+							<button id="deletefile" type="submit" onclick="fileManagerDeleteFile('list')" disabled="disabled">
+								<img src="images/File-Delete-icon.png" alt="Delete file" />
+							</button>
+						</td>
+						<td>
+							<button id="downloadfile" type="submit"><img src="images/Files-Download-File-icon.png" /></button>
+						</td>
+						<td>
+							<button type="submit" onclick="fileManagerUploadFile('files','uploadFileButton')">
+								<img src="images/Files-Upload-File-icon_32.png" />
+							</button>
+						</td>
+						<td>
+							<div style="display:none">
+								<form id="uploadFiles" action="jwe.pl" method='post' enctype="multipart/form-data">
+									<button id="uploadFileButton" type="submit">
+										<img src="images/Files-Upload-File-icon_32.png" />
+									</button>
+									<input type="file" id="files" name="files" multiple />
+									<input type="hidden" id="uploadFolder" name="$1" value="<TMPL_VAR NAME=UPLOAD_FOLDER>" />
+									<input type="hidden" name="performAction" value="UploadFileFileManager" />
+								</form>
+							</div>
+						</td>
+					</tr>
+				</table>
+	
+				<table id="list" style="width:100%;"></table>
+			</div>
+		</div>

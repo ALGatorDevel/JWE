@@ -1,0 +1,28 @@
+				<tr id="<TMPL_VAR NAME=ELEMENT_ID>_rowFiles" valign="top">
+					<td class="entity2TableColumn0">
+						<input id="<TMPL_VAR NAME=ELEMENT_ID>" class="readOnlyTextInput" name="<TMPL_VAR NAME=ELEMENT_ID>" type="hidden" value="Hidden" /> 
+						<input class="keyDescriptionEntityFiles" type="text" readonly="readonly" value="<TMPL_VAR NAME=KEY_DESCRIPTION>" />
+					</td>
+					<td class="entity2TableColumn1" colspan="2">
+						<table id="<TMPL_VAR NAME=ELEMENT_ID>_entityTable2" class="entity2Table2" cellpadding="1" cellspacing="0">
+							<TMPL_LOOP NAME="VALUES">
+							<TMPL_IF NAME="ADD_ROW"><tr id="<TMPL_VAR NAME=ELEMENT_ID>_addRowFiles">
+								<td class="entity2TableColumn1" colspan="2">
+									<input id="<TMPL_VAR NAME=ELEMENT_ID>_filename" class="editableTextInput" type="text" name="<TMPL_VAR NAME=ELEMENT_ID>" value="<TMPL_VAR NAME=VALUE>"  onkeyup="validateAndSave(this.value,'<TMPL_VAR NAME=ELEMENT_ID>_filename','', 0,'saveEntityButton', 'errorMessage')" />
+								</td>
+								<td class="entity2TableColumn3">
+									<TMPL_IF NAME="USE_ROOT"><img id="<TMPL_VAR NAME=ELEMENT_ID>_fileManagerImage" onclick="openFileManager('<TMPL_VAR NAME=ROOT>','<TMPL_VAR NAME=ELEMENT_ID>_filename', 'container', 'list', 'fileManager','saveEntityButton')"  src="images/File-manager-icon_32.png"  /></TMPL_IF>
+								</td>
+							</tr><TMPL_ELSE><tr id="<TMPL_VAR NAME=ELEMENT_ID>_rowFiles">
+								<td class="entity2TableColumn1" colspan="2">
+									<input id="<TMPL_VAR NAME=ELEMENT_ID>_filename" class="editableTextInput" type="text" name="<TMPL_VAR NAME=ELEMENT_ID>" value="<TMPL_VAR NAME=VALUE>"  onkeyup="validateAndSave(this.value,'<TMPL_VAR NAME=ELEMENT_ID>_filename','', 0,'saveEntityButton', 'errorMessage')" />
+								</td>
+								<td class="entity2TableColumn3">
+									<img id="<TMPL_VAR NAME=INDEX>_deleteImage" onclick="entityDeleteTableRow('<TMPL_VAR NAME=ELEMENT_ID>_rowFiles','saveEntityButton')" src="images/delete-icon_24.png" />
+								</td>
+							</tr></TMPL_IF>
+							</TMPL_LOOP>
+						</table>
+					</td>
+				</tr>
+						
