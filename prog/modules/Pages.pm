@@ -1012,7 +1012,7 @@ sub EditEntity {
 	my $ajax         = $_[12];
 	
 	$level = 0 if !defined $level;
-	$ajax  = 1 if !defined $ajax;
+	$ajax  = 0 if !defined $ajax;
 
 	Tools::LogEnterFunction("EditEntity");
 
